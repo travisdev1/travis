@@ -1,3 +1,4 @@
 # fedora-happiness-packets
 
-Add Fedora user account authentication and fedmsg integration to Happiness Packets to deploy in Fedora’s infrastructure
+This project conains the codebase for fedorahosted version of happinesspackets.io to be used during Appreciation week.
+
