@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h2>Send a happiness packet to someone!</h2>
+    </div>
+
+    {% crispy form %}
+{% endblock content %}

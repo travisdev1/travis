@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h2>Happiness Archive</h2>
+    </div>
+
+    <p>
+        When you send a Happiness Packet, you can agree to display your message publicly on
+        this website. If both sender and recipient select this option, the message is published
+        on this page as a part of our Happiness Archive.
+    </p>
+
+    {% include 'messaging/_message_list.html' %}
+
+{% endblock content %}
