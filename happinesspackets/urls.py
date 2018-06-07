@@ -6,6 +6,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^oidc/', include('mozilla_django_oidc.urls')),
     url(r'^', include('happinesspackets.messaging.urls', namespace="messaging")),
 ]
 

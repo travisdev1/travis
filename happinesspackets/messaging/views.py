@@ -32,6 +32,11 @@ class StartView(ArchiveListView):
     def get_queryset(self):
         return super(StartView, self).get_queryset().order_by('?')[:2]
 
+    def get_context_data(self, **kwargs):
+        context = super(StartView, self).get_context_data(**kwargs)
+        user = self.request.user
+        return context
+
 
 class FaqView(TemplateView):
     template_name = 'messaging/faq.html'

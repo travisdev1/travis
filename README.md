@@ -15,7 +15,7 @@ the correct ``DJANGO_SETTINGS_MODULE``, for example with::
     python manage.py migrate
     ./t
 
-To run on http://127.0.0.1:8000/:
+To run on http://127.0.0.1:8000/ :
 
     python manage.py runserver
 
