@@ -35,7 +35,7 @@
                 {% url 'messaging:archive' as url %}
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Happiness Archive</a></li>
                 {% if user.is_authenticated %}
-                 <a>{{ user.email }}</p>
+                 <a>{{ user.email }}</a>
                 {% else %}
                 {% url 'oidc_authentication_init' as url %}
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Login</a></li>
