@@ -21,7 +21,7 @@ To run on http://127.0.0.1:8000/ :
 
 Don't forget to start the mail server:
 
-    python -m smtpd -n -c DebgingServer localhost:2525
+    python -m smtpd -n -c DebuggingServer localhost:2525
 
 The ``t`` command is a very short shell script that runs the tests with the correct settings and reports on coverage.
 
