@@ -1,17 +1,26 @@
 # fedora-happiness-packets
 
-This project conains the codebase for fedorahosted version of happinesspackets.io to be used during Appreciation week.
+This project contains the codebase for fedora hosted version of happinesspackets.io to be used during Appreciation week.
 
-Google Summer of Code Application Prerequisites for this projects are here:
+# Setup
 
-1. Create a FAS Id, join CommOps group 
+To run this project or the tests, you need to set up a virtualenv, install the dev requirements and set
+the correct ``DJANGO_SETTINGS_MODULE``, for example with::
 
-2. Suscribe and send introductions to commops and summer-coding mailing lists.
+    virtualenv --no-site-packages --prompt='(happinesspackets)' virtualenv/
+    source virtualenv/bin/activate
+    pip install -r requirements/dev.txt
+    export DJANGO_SETTINGS_MODULE=happinesspackets.settings.dev
+    ./manage.py collectstatic
+    python manage.py migrate
+    ./t
 
-3. Ceate and share with us a Fedora wiki user page. For example, https://fedoraproject.org/wiki/User:Bee2502
+To run on http://127.0.0.1:8000/:
 
-4. Follow the application process i.e create a subpage for your GSoC proposal and populate it with details. 
+    python manage.py runserver
 
-More info on that is here: https://docs.fedoraproject.org/mentored-projects/gsoc/2018/application.html
+The ``t`` command is a very short shell script that runs the tests with the correct settings and reports on coverage.
 
-Don't worry if you dont know everything i.e. the timeline. We can help you with that but fill as many details as you can.
+To run the integration tests::
+
+    ./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting
