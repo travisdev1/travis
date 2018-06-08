@@ -126,8 +126,9 @@ OIDC_RP_CLIENT_SECRET = os.environ.get('OIDC_RP_CLIENT_SECRET')
 OIDC_OP_AUTHORIZATION_ENDPOINT = "https://iddev.fedorainfracloud.org/openidc/Authorization"
 OIDC_OP_TOKEN_ENDPOINT = "https://iddev.fedorainfracloud.org/openidc/Token"
 OIDC_OP_USER_ENDPOINT = "https://iddev.fedorainfracloud.org/openidc/UserInfo"
-LOGIN_REDIRECT_URL = "/"
-LOGIN_REDIRECT_URL_FAILURE = "/error"
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL_FAILURE = '/error'
 OIDC_RP_SCOPES = 'openid profile email'
 
 LOGGING = {
