@@ -37,16 +37,16 @@
                 {% if user.is_authenticated %}
                 <form id="logout" action="{% url 'oidc_logout' %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-link btn-logout">
+                    <button type="submit" class="btn btn-logout">
                     <span class="glyphicon glyphicon-log-out"></span>
-                    <span class="nounderline">&nbsp;Logout</span>
+                    <span>&nbsp;Logout</span>
                     </button>
                 </form>
                 {% else %}
                 <form id="login" action="{% url 'oidc_authentication_init' %}" method="get">
-                    <button type="submit" class="btn btn-link btn-login">
+                    <button type="submit" class="btn btn-login">
                     <span class="glyphicon glyphicon-log-in"></span>
-                    <span class="nounderline">&nbsp;Login</span>
+                    <span>&nbsp;Login</span>
                     </button>
                 </form>
                 {% endif %}
