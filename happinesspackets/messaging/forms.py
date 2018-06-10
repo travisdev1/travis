@@ -30,7 +30,7 @@ class MessageSendForm(forms.ModelForm):
 
     class Meta:
         model = Message
-        fields = ['sender_name', 'sender_email', 'recipient_name', 'recipient_email', 'message',
+        fields = ['recipient_name', 'recipient_email', 'message',
                   'sender_named', 'sender_approved_public', 'sender_approved_public_named']
 
     def __init__(self, *args, **kwargs):
@@ -40,10 +40,6 @@ class MessageSendForm(forms.ModelForm):
         self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-8'
 
-        self.fields['sender_name'].label = 'Name'
-        self.fields['sender_email'].label = 'Email'
-        self.fields['sender_email'].help_text = "We'll send you a confirmation link before sending your message out."
-        self.fields['sender_email'].validators = [validate_email]
         self.fields['recipient_name'].label = 'Name'
         self.fields['recipient_email'].label = 'Email'
         self.fields['recipient_email'].validators = [validate_email]
@@ -54,7 +50,7 @@ class MessageSendForm(forms.ModelForm):
         self.fields['sender_approved_public_named'].help_text = "Note: We only publish information if both the sender and the recipients agree."
 
         self.helper.layout = Layout(
-            Fieldset('This Happiness Packet is from...', 'sender_name', 'sender_email', 'hp'),
+            # Fieldset('This Happiness Packet is from...', 'sender_name', 'sender_email', 'hp'),
             Fieldset("Send this Happiness Packet to...", 'recipient_name', 'recipient_email'),
             Fieldset("Your message is...", 'message'),
             Fieldset("Privacy and permissions", 'sender_named', 'sender_approved_public', 'sender_approved_public_named'),

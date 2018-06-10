@@ -116,7 +116,7 @@ INSTALLED_APPS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    'happinesspackets.messaging.auth.OIDC',
 )
 
 OIDC_RP_SIGN_ALGO = 'RS256'
