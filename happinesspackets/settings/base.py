@@ -12,11 +12,13 @@ BASE_DIR = PROJECT_DIR
 DEBUG = False
 
 ADMINS = (
-    ('Anna Philips', 'ms.annaphilips@gmail.com'),
+    ('Anna Philips', 'algogator@fedoraproject.org'),
+    ('Jona Azizaj', 'jonatoni@fedoraproject.org'),
+    ('Bhagyashree Uday', 'bee2502@fedoraproject.org'),
 )
 SERVER_EMAIL = ADMINS[0][1]
 
-DEFAULT_FROM_EMAIL = "Happiness Packets <ms.annaphilips@gmail.com>"
+DEFAULT_FROM_EMAIL = "Happiness Packets <fedora.happinesspackets@gmail.com>"
 
 EMAIL_SUBJECT_PREFIX = "[happinesspackets] "
 
