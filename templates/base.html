@@ -34,6 +34,22 @@
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">FAQ</a></li>
                 {% url 'messaging:archive' as url %}
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Happiness Archive</a></li>
+                {% if user.is_authenticated %}
+                <form id="logout" action="{% url 'oidc_logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-logout">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    <span>&nbsp;Logout</span>
+                    </button>
+                </form>
+                {% else %}
+                <form id="login" action="{% url 'oidc_authentication_init' %}" method="get">
+                    <button type="submit" class="btn btn-login">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    <span>&nbsp;Login</span>
+                    </button>
+                </form>
+                {% endif %}
             </ul>
         </div>
     </aside>
@@ -59,14 +75,9 @@
                 <a href="https://twitter.com/intent/tweet?button_hashtag=FedoraAppreciationWeek2k18" class="twitter-hashtag-button" data-size="large" data-dnt="true">Tweet #FedoraAppreciationWeek2k18</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 <br>
-                Open-Source Happiness Packets is an
-                <a href="https://github.com/mxsasha/happinesspackets/">open-source project</a> by
-                <a href="https://twitter.com/mxsash">Sasha Romijn</a> and
-                <a href="https://twitter.com/thatdocslady">Mikey Ariel</a>.
+                Fedora Happiness Packets is a fork of <a href="https://github.com/mxsasha/happinesspackets/">Happiness Packets</a> and part of GSoC 2018.
                 <br>
-                Design and artwork by <a href="https://twitter.com/olasitarska">Ola Sitarska</a>.
-                <br>
-                Need help? <a href="mailto:info@happinesspackets.io">info@happinesspackets.io</a>
+                Need help? <a href="mailto:fedora.happinesspackets@gmail.com">fedora.happinesspackets@gmail.com</a>
                 <img class="emoji" src="{% static 'images/emoji/loveletter.png' %}" alt="💌" title="Love letter" aria-label="Emoji: Love letter" style="vertical-align: text-bottom">
 
             </small></footer>

@@ -12,11 +12,13 @@ BASE_DIR = PROJECT_DIR
 DEBUG = False
 
 ADMINS = (
-    ('Sasha Romijn', 'github@mxsasha.eu'),
+    ('Anna Philips', 'algogator@fedoraproject.org'),
+    ('Jona Azizaj', 'jonatoni@fedoraproject.org'),
+    ('Bhagyashree Uday', 'bee2502@fedoraproject.org'),
 )
 SERVER_EMAIL = ADMINS[0][1]
 
-DEFAULT_FROM_EMAIL = "Happiness Packets <info@happinesspackets.io>"
+DEFAULT_FROM_EMAIL = "Happiness Packets <fedora.happinesspackets@gmail.com>"
 
 EMAIL_SUBJECT_PREFIX = "[happinesspackets] "
 
@@ -60,11 +62,11 @@ STATICFILES_DIRS = (
 
 # noinspection PyUnresolvedReferences
 MIDDLEWARE_CLASSES = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'happinesspackets.utils.middleware.SetRemoteAddrFromForwardedFor',
     'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
     'dogslow.WatchdogMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
@@ -101,6 +103,7 @@ TEMPLATES = [
 
 INSTALLED_APPS = [
     'django.contrib.auth',
+    'mozilla_django_oidc',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -114,6 +117,21 @@ INSTALLED_APPS = [
     'happinesspackets.messaging',
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'happinesspackets.messaging.auth.OIDC',
+)
+
+OIDC_RP_SIGN_ALGO = 'RS256'
+OIDC_RP_IDP_SIGN_KEY = '-----BEGIN RSA PUBLIC KEY-----\nMIIBCgKCAQEAq/0/XjILQxF3OaQZtFE3wVJ5UUuxZbxiJ/z+Zai0EOHiaMMxVyoo\nibDRen615r525DQ8TmQyR0eMQEpQ6SUvaOunahpYohgAkbkYggUMQhcoCLme18ZJ\nBTNWTP8w4t7mcuZd1cy1KtHpEvH4gkrjp8N3vIv1lzFraSc+p2rHMbV+AX5CJQ1H\nohBdwaqyOBKp0nzY27gu2EH2vzCwXkO4zGtrHfjjGc0Ra4WG+xz1AWg833xcFj3p\nqM3vca09jDLBme+GT151LcCCXRNyOZPZ3ZX62NxkMyqvVJHC3Uu2Q1hSHO7f6AZk\nZXY88PXXEH52T2ZrWiISowjTcGUboP8goQIDAQAB\n-----END RSA PUBLIC KEY-----\n'
+OIDC_RP_CLIENT_ID = os.environ.get('OIDC_RP_CLIENT_ID')
+OIDC_RP_CLIENT_SECRET = os.environ.get('OIDC_RP_CLIENT_SECRET')
+OIDC_OP_AUTHORIZATION_ENDPOINT = "https://iddev.fedorainfracloud.org/openidc/Authorization"
+OIDC_OP_TOKEN_ENDPOINT = "https://iddev.fedorainfracloud.org/openidc/Token"
+OIDC_OP_USER_ENDPOINT = "https://iddev.fedorainfracloud.org/openidc/UserInfo"
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL_FAILURE = '/error'
+OIDC_RP_SCOPES = 'openid profile email'
 
 LOGGING = {
     'version': 1,

@@ -154,6 +154,18 @@ blockquote {
     }
 }
 
-.emoji { 
-    vertical-align: initial;  
+.emoji {
+    vertical-align: initial;
+}
+
+.btn-login, .btn-logout {
+  background: none;
+  color: white;
+  border: none;
+}
+
+.btn-login:hover, .btn-logout:hover {
+    background: none;
+    color: white;
+    border: none;
 }

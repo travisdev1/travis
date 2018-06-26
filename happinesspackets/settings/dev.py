@@ -27,10 +27,11 @@ CSRF_COOKIE_SECURE = False
 ADMIN_ENABLED = True
 
 MIDDLEWARE_CLASSES = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'happinesspackets.utils.middleware.SetRemoteAddrFromForwardedFor',
     'dogslow.WatchdogMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',

@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 from django.utils.html import format_html
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, TemplateView, UpdateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import MessageSendForm, MessageRecipientForm
 from .models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail, strip_email
@@ -31,6 +32,11 @@ class StartView(ArchiveListView):
 
     def get_queryset(self):
         return super(StartView, self).get_queryset().order_by('?')[:2]
+
+    def get_context_data(self, **kwargs):
+        context = super(StartView, self).get_context_data(**kwargs)
+        user = self.request.user
+        return context
 
 
 class FaqView(TemplateView):
@@ -72,8 +78,8 @@ class BlacklistEmailView(TemplateView):
         messages.success(self.request, message)
         return HttpResponseRedirect(self.success_url)
 
-
-class MessageSendView(FormView):
+class MessageSendView(LoginRequiredMixin, FormView):
+    login_url = '/oidc/authenticate/'
     template_name = 'messaging/message_send_form.html'
     form_class = MessageSendForm
 
@@ -84,6 +90,8 @@ class MessageSendView(FormView):
     def form_valid(self, form):
         message = form.save(commit=False)
         message.sender_ip = self.request.META['REMOTE_ADDR']
+        message.sender_name = self.request.user.first_name
+        message.sender_email = self.request.user.email
         message.save()
         message.send_sender_confirmation(self.request.is_secure(), self.request.get_host())
         return HttpResponseRedirect(reverse('messaging:sender_confirmation_sent'))
