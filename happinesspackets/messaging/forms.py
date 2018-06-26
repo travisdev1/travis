@@ -26,7 +26,7 @@ def validate_email(email):
 
 
 class MessageSendForm(forms.ModelForm):
-    hp = forms.CharField(label="do not fill", required=False)
+    # hp = forms.CharField(label="do not fill", required=False)
 
     class Meta:
         model = Message
@@ -60,8 +60,8 @@ class MessageSendForm(forms.ModelForm):
 
     def clean(self):
         super(MessageSendForm, self).clean()
-        if self.cleaned_data.get('hp'):
-            raise forms.ValidationError('')
+        # if self.cleaned_data.get('hp'):
+        #     raise forms.ValidationError('')
         if self.cleaned_data.get('sender_approved_public_named') and not self.cleaned_data.get('sender_approved_public'):
             self.add_error('sender_approved_public_named', "If you want us to publish the message including your names, "
                                                            "you must also check 'I agree to publish this message and"
