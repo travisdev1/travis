@@ -11,7 +11,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a, a:hover {
-    color: #F64747;
+    color: #294172;
 }
 
 aside {
@@ -78,16 +78,16 @@ blockquote {
 
 .btn {
     background: white;
-    border: 1px solid #F64747;
-    color: #F64747;
+    border: 1px solid #294172;
+    color: #294172;
     text-transform: uppercase;
     padding: 0.9em 1.3em;
 }
 
 .btn:hover {
-    background: #F64747;
+    background: #294172;
     color: white;
-    border: 1px solid #F64747;
+    border: 1px solid #294172;
 }
 
 .row.content {
@@ -115,9 +115,9 @@ blockquote {
         width: 25%;
         height: calc(100% + 20px);
         position: fixed;
-        background: -moz-linear-gradient(top,  #F23030 0%, #f64747 27%, #f64747 27%, #F23030 100%);
-        background: -webkit-linear-gradient(top,  #F23030 0%,#f64747 27%,#f64747 27%,#F23030 100%);
-        background: linear-gradient(to bottom,  #F23030 0%,#f64747 27%,#f64747 27%,#F23030 100%);
+        background: -moz-linear-gradient(top,  #3c6eb4 0%, #3c6eb4 27%, #3c6eb4 27%, #3c6eb4 100%);
+        background: -webkit-linear-gradient(top,  #3c6eb4 0%, #3c6eb4 27%, #3c6eb4 27%, #3c6eb4 100%);
+        background: linear-gradient(to bottom,  #3c6eb4 0%, #3c6eb4 27%, #3c6eb4 27%, #3c6eb4 100%);
     }
 
     aside .sidebar {
@@ -168,4 +168,36 @@ blockquote {
     background: none;
     color: white;
     border: none;
+}
+
+.sharebutton {
+    position: relative;
+    height: 28px;
+    box-sizing: border-box;
+    background-color: #3B5998;
+    padding: 1px 10px 1px 9px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    inherit: none;
+    display: inline-block;
+    vertical-align: top;
+    font: normal normal normal 11px/18px 'Helvetica Neue',Arial,sans-serif;
+    font-size: 13px;
+    line-height: 26px;
+    border-radius: 4px;
+}
+
+.sharebutton:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #2f4779;
+}
+
+.google{
+    background-color: #d34836;
+}
+
+.google:hover{
+    background-color: #b72213;
 }
