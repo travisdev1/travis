@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 class ArchiveListView(ListView):
     model = Message
+    paginate_by = 5
 
     def get_queryset(self):
         queryset = super(ArchiveListView, self).get_queryset()
