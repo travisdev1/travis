@@ -12,6 +12,7 @@
     <link href="{% static 'css/datepicker.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
     <link href="{% static 'images/favicon.ico' %}" rel="icon" type="image/x-icon">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!--[if lt IE 8]>
         <link href="{% static 'css/bootstrap-ie7.css' %}" rel="stylesheet">
@@ -20,6 +21,7 @@
 </head>
 
 <body>
+    {% include "facebook.html" %}
     <aside>
         <div class="sidebar">
             {% url 'messaging:start' as url %}
@@ -69,9 +71,10 @@
             </div>
             <footer><small>
                 <hr>
-                <a href="https://twitter.com/intent/tweet?button_hashtag=FedoraAppreciationWeek2k18" class="twitter-hashtag-button" data-size="large" data-dnt="true">Tweet #FedoraAppreciationWeek2k18</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                {% block footer %}
+                {% include "follow.html" %}
                 <br>
+                {% endblock %}
                 Fedora Happiness Packets is a fork of <a href="https://github.com/mxsasha/happinesspackets/">Happiness Packets</a> and part of GSoC 2018.
                 <br>
                 Need help? <a href="mailto:fedora.happinesspackets@gmail.com">fedora.happinesspackets@gmail.com</a>
