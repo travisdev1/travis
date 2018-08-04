@@ -11,7 +11,8 @@ from django.utils.crypto import salted_hmac
 from model_utils import Choices
 from model_utils.models import TimeStampedModel
 
-from happinesspackets.utils.misc import readable_random_token, send_html_mail
+from happinesspackets.utils.misc import readable_random_token
+from happinesspackets.tasks import send_html_mail
 
 logger = logging.getLogger(__name__)
 BLACKLIST_HMAC_SALT = 'happinesspackets.messaging.views.BlacklistEmailView'
@@ -79,7 +80,7 @@ class Message(TimeStampedModel):
         subject = ' '.join(subject.splitlines())
         body_txt = render_to_string('messaging/sender_confirmation_mail.txt', context)
         body_html = render_to_string('messaging/sender_confirmation_mail.html', context)
-        send_html_mail(subject, body_txt, body_html, self.sender_email)
+        send_html_mail.delay(subject, body_txt, body_html, self.sender_email)
         self.save()
 
     def send_to_recipient(self, use_https, domain):
@@ -102,7 +103,7 @@ class Message(TimeStampedModel):
         subject = ' '.join(subject.splitlines())
         body_txt = render_to_string('messaging/recipient_mail.txt', context)
         body_html = render_to_string('messaging/recipient_mail.html', context)
-        send_html_mail(subject, body_txt, body_html, self.recipient_email)
+        send_html_mail.delay(subject, body_txt, body_html, self.recipient_email)
         self.save()
 
 
