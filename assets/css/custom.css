@@ -1,12 +1,11 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans';
     line-height: 1.8em;
     font-size: 16px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lora', serif;
-    font-style: italic;
+    font-family: 'Montserrat';
     margin-top: 1.4em;
 }
 
@@ -15,7 +14,7 @@ a, a:hover {
 }
 
 aside {
-    background: #F64747;
+    background: #3c6eb4;
     margin: -20px 0 0 0;
 }
 
@@ -27,7 +26,7 @@ aside .sidebar {
 
 aside .sidebar a {
     color: white;
-    font-family: Lora, sans-serif;
+    font-family: Montserrat;
     font-size: 18px;
 }
 
@@ -54,7 +53,7 @@ fieldset {
 }
 
 fieldset legend {
-    font-family: 'Lora', serif;
+    font-family: 'Montserrat';
     font-style: italic;
     border-bottom: 0px;
 }
