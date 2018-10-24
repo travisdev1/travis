@@ -19,3 +19,7 @@ syntax: glob
 *.pyc
 *.swp
 *.sqlite3
+
+
+#OIDC credentials
+client_secrets.json
