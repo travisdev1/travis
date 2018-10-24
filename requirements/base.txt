@@ -34,3 +34,4 @@ factory-boy==2.9.2
 opbeat==3.3
 mozilla-django-oidc==1.0.0
 fedmsg==1.1.1
+celery[redis]==4.2.1
