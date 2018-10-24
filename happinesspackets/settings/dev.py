@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
+import json
+
 from .base import *  # noqa
 
 DEBUG = True
@@ -13,12 +15,17 @@ DATABASES = {
     }
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 2525
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" 
+
+
 SECRET_KEY = 'only-for-testing'
 
 INTERNAL_IPS = ('127.0.0.1',)
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : lambda request: DEBUG,
+}
+
 
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
@@ -42,3 +49,17 @@ INSTALLED_APPS += (
 )
 
 SELENIUM_SCREENSHOT_DIR = PROJECT_DIR.child('selenium-screenshots')
+
+
+# Uses a separate Docker container to act as the Redis server
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+# Loads OIDC Client ID and Secret from client_secrets.json
+
+with open("client_secrets.json") as f:
+    secrets = json.load(f)["web"]
+    OIDC_RP_CLIENT_ID = secrets["client_id"]
+    OIDC_RP_CLIENT_SECRET = secrets["client_secret"]
+
+
