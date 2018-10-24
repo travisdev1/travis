@@ -1,6 +1,6 @@
 # fedora-happiness-packets
 
-This project contains the codebase for fedora hosted version of happinesspackets.io to be used during Appreciation week.
+This project contains the codebase for fedora hosted version of happinesspackets.io to be used during Appreciation week. The live service is hosted [here](http://happinesspackets.fedorainfracloud.org)
 
 # Setup
 
