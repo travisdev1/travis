@@ -13,6 +13,7 @@ the correct ``DJANGO_SETTINGS_MODULE``, for example with::
     export DJANGO_SETTINGS_MODULE=happinesspackets.settings.dev
 
 Before running the server locally, you must collect all the static files and perform a database migration.
+
     ./manage.py collectstatic
     python manage.py migrate
 
