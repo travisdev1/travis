@@ -11,6 +11,25 @@ from .test_models import MessageModelFactory, BlacklistedEmailFactory
 from ..models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail
 
 
+class MessageCounterTest(TestCase):
+    url = reverse('messaging:start')
+
+    def test_message_sent_included(self):
+        msg = MessageModelFactory(status="sent")
+        response = self.client.get(self.url)
+        self.assertContains(response,"Packets sent: <b>1</b>")
+
+    def test_message_read_included(self):
+        msg = MessageModelFactory(status="read")
+        response = self.client.get(self.url)
+        self.assertContains(response,"Packets sent: <b>1</b>")
+
+    def test_message_to_be_confirmed_excluded(self):
+        msg = MessageModelFactory(status="pending_sender_confirmation")
+        response = self.client.get(self.url)
+        self.assertContains(response,"Packets sent: <b>0</b>")
+
+
 class StartViewTest(TestCase):
     url = reverse('messaging:start')
 
