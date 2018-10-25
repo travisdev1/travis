@@ -5,5 +5,4 @@ from __future__ import absolute_import, unicode_literals
 from happinesspackets._celery import app as celery_app
 
 __all__ = ('celery_app',)
-
 __author__ = 'erik'
