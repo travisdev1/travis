@@ -8,7 +8,8 @@ Make sure you have Docker and Docker Compose installed.
 
 In order for the login and send views to work, you must supply an OpenID Connect Client ID and Client Secret:
 
-    oidc-register https://iddev.fedorainfracloud.org/openidc/ http://localhost:8000/oidc/callback/ 
+    chmod +x generate_client_secrets.sh 
+    ./generate_client_secrets.sh 
 
 To run on http://localhost:8000/ :
 

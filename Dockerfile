@@ -13,6 +13,12 @@ ENV DJANGO_SETTINGS_MODULE=happinesspackets.settings.dev
 # Copy project files into container
 COPY . /
 
+
+# Check if client_secrets.json is present, and generate if not
+RUN apk add --update --no-cache curl
+RUN chmod +x generate_client_secrets.sh
+RUN ./generate_client_secrets.sh
+
 RUN ./manage.py collectstatic --noinput
 RUN python manage.py migrate
 

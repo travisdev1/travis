@@ -58,7 +58,7 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 # Loads OIDC Client ID and Secret from client_secrets.json
 
 with open("client_secrets.json") as f:
-    secrets = json.load(f)["web"]
+    secrets = json.load(f)
     OIDC_RP_CLIENT_ID = secrets["client_id"]
     OIDC_RP_CLIENT_SECRET = secrets["client_secret"]
 
