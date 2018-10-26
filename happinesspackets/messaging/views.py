@@ -90,6 +90,11 @@ class MessageSendView(LoginRequiredMixin, FormView):
     def dispatch(self, *args, **kwargs):
         return super(MessageSendView, self).dispatch(*args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super(MessageSendView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         message = form.save(commit=False)
         message.sender_ip = self.request.META['REMOTE_ADDR']

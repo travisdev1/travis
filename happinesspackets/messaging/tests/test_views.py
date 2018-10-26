@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.core import mail
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.crypto import salted_hmac
@@ -155,6 +156,9 @@ class SendViewTest(TestCase):
             'sender_approved_public': True,
             'sender_approved_public_named': True,
         }
+        self.user = User.objects.create_user("erikio", "sender@erik.io", "helloworld", first_name="Erik",last_name="Doe")
+        self.user.save()
+        self.client.login(username = "erikio", password = "helloworld")
 
     def test_renders(self):
         response = self.client.get(self.url)
@@ -179,14 +183,14 @@ class SendViewTest(TestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_post_blacklisted_sender(self):
-        BlacklistedEmailFactory(email='sender@erik.io', stripped_email='sender@erikio')
+        BlacklistedEmailFactory(email='SEN.DER+FOOBAR@erik.io', stripped_email='sender@erikio')
         response = self.client.post(self.url, self.post_data)
         self.assertRedirects(response, reverse('messaging:sender_confirmation_sent'))
         self.assertEqual(len(mail.outbox), 0)
 
     def test_post_ratelimited_sender(self):
         for i in range(settings.MAX_MESSAGES + 1):
-            MessageModelFactory(sender_email='sender@erik.io', sender_email_stripped='sender@erikio')
+            MessageModelFactory(sender_email='SEN.DER+FOOBAR@erik.io', sender_email_stripped='sender@erikio')
         response = self.client.post(self.url, self.post_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['form'].errors), 1)
@@ -194,7 +198,7 @@ class SendViewTest(TestCase):
 
     def test_post_ratelimited_recipient(self):
         for i in range(settings.MAX_MESSAGES + 1):
-            MessageModelFactory(recipient_email='sender@erik.io', recipient_email_stripped='recipient@erikio')
+            MessageModelFactory(recipient_email='recipient@erik.io', recipient_email_stripped='recipient@erikio')
         response = self.client.post(self.url, self.post_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['form'].errors), 1)

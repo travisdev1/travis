@@ -34,6 +34,7 @@ class MessageSendForm(forms.ModelForm):
                   'sender_named', 'sender_approved_public', 'sender_approved_public_named']
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
         super(MessageSendForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -66,7 +67,7 @@ class MessageSendForm(forms.ModelForm):
             self.add_error('sender_approved_public_named', "If you want us to publish the message including your names, "
                                                            "you must also check 'I agree to publish this message and"
                                                            "display it publicly in the Happiness Archive'")
-
+        validate_email(self.user.email)
 
 class MessageRecipientForm(forms.ModelForm):
     class Meta:
