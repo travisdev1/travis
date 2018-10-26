@@ -1,12 +1,10 @@
 import logging
 
-from happinesspackets._celery import app
 from email.mime.image import MIMEImage
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 
 
-@app.task
 def send_html_mail(subject, body_txt, body_html, recipient):
     message = EmailMultiAlternatives(subject, body_txt, settings.DEFAULT_FROM_EMAIL, [recipient])
     message.attach_alternative(body_html, 'text/html')

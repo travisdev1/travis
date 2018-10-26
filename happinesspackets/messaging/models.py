@@ -80,7 +80,7 @@ class Message(TimeStampedModel):
         subject = ' '.join(subject.splitlines())
         body_txt = render_to_string('messaging/sender_confirmation_mail.txt', context)
         body_html = render_to_string('messaging/sender_confirmation_mail.html', context)
-        send_html_mail.delay(subject, body_txt, body_html, self.sender_email)
+        send_html_mail(subject, body_txt, body_html, self.sender_email)
         self.save()
 
     def send_to_recipient(self, use_https, domain):
@@ -103,7 +103,7 @@ class Message(TimeStampedModel):
         subject = ' '.join(subject.splitlines())
         body_txt = render_to_string('messaging/recipient_mail.txt', context)
         body_html = render_to_string('messaging/recipient_mail.html', context)
-        send_html_mail.delay(subject, body_txt, body_html, self.recipient_email)
+        send_html_mail(subject, body_txt, body_html, self.recipient_email)
         self.save()
 
 

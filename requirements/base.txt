@@ -35,3 +35,4 @@ opbeat==3.3
 mozilla-django-oidc==1.0.0
 fedmsg==1.1.1
 celery[redis]==4.2.1
+django-celery-email==2.0.1

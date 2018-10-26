@@ -50,7 +50,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-
 MEDIA_ROOT = PROJECT_DIR.child('media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = PROJECT_DIR.child('static')
@@ -116,7 +115,11 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'happinesspackets.messaging',
+    'djcelery_email',
 ]
+
+
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 AUTHENTICATION_BACKENDS = (
     'happinesspackets.messaging.auth.OIDC',
