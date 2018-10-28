@@ -10,12 +10,18 @@ CRISPY_FAIL_SILENTLY = False
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': PROJECT_DIR.child('db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'db',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'example',
+        'ATOMIC_REQUESTS': True,
+        'CONN_MAX_AGE': 300,
     }
 }
 
-CELERY_EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" 
+CELERY_EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 SECRET_KEY = 'only-for-testing'

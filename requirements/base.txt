@@ -35,3 +35,4 @@ opbeat==3.3
 mozilla-django-oidc==1.0.0
 celery[redis]==4.2.1
 django-celery-email==2.0.1
+psycopg2==2.7.5 # PostgreSQL driver
