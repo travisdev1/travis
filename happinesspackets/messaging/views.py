@@ -14,11 +14,18 @@ from django.views.generic import FormView, TemplateView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
+from haystack.generic_views import SearchView
+from haystack.forms import SearchForm
+
 from .forms import MessageSendForm, MessageRecipientForm
 from .models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail, strip_email
 
 logger = logging.getLogger(__name__)
 
+
+class MessageSearchView(SearchView):
+    template_name = 'search/search.html'
+    form_class = SearchForm
 
 class ArchiveListView(ListView):
     model = Message

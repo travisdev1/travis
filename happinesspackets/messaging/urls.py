@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls import url
 
-from .views import (StartView, MessageSendView, MessageSenderConfirmationSentView, MessageSenderConfirmationView,
+from .views import (StartView, MessageSearchView, MessageSendView, MessageSenderConfirmationSentView, MessageSenderConfirmationView,
                     MessageSenderConfirmedView, MessageRecipientMessageUpdate, FaqView, ArchiveView, InspirationView,
                     BlacklistEmailView, ReceivedMessagesView, SentMessagesView)
 
@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^send/confirmation/(?P<identifier>[\w-]+)/(?P<token>[\w-]+)/$', MessageSenderConfirmationView.as_view(), name='sender_confirm'),
     url(r'^send/confirmed/$', MessageSenderConfirmedView.as_view(), name='sender_confirmed'),
     url(r'^recipient/(?P<identifier>[\w-]+)/(?P<token>[\w-]+)/$', MessageRecipientMessageUpdate.as_view(), name='recipient_message_update'),
+    url(r'^search/?$', MessageSearchView.as_view(), name='search'),
 ]

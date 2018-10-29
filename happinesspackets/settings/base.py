@@ -114,6 +114,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'crispy_forms',
+    'haystack',
     'happinesspackets.messaging',
     'djcelery_email',
 ]
@@ -195,6 +196,15 @@ REDIS_PORT = '6379'
 CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 def get_env_variable(var_name):
     """ Get the environment variable or return exception """

@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/all.css' %}" rel="stylesheet">
     <link href="{% static 'css/datepicker.css' %}" rel="stylesheet">
@@ -41,6 +42,8 @@
                 <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">FAQ</a></li>
                 {% url 'messaging:archive' as url %}
                 <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Happiness Archive</a></li>
+                {% url 'messaging:search' as url %}
+                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Search the Archive</a></li>
             {% if user.is_authenticated %}
                 {% url 'messaging:received_messages' as url %}
                 <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">My Received Packets</a></li>
