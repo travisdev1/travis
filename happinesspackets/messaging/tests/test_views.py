@@ -7,10 +7,59 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils.crypto import salted_hmac
+from haystack.management.commands import update_index
+
 
 from .test_models import MessageModelFactory, BlacklistedEmailFactory
 from ..models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail
 
+
+class SearchViewTest(TestCase):
+    url = reverse('messaging:search')
+
+    def test_anonymous_message_indexed(self):
+        MessageModelFactory(sender_approved_public=True, sender_approved_public_named=False,
+                            recipient_approved_public=True, recipient_approved_public_named=True,
+                            admin_approved_public=True)
+        msg = MessageModelFactory(sender_approved_public=True, sender_approved_public_named=True,
+                                  recipient_approved_public=True, recipient_approved_public_named=False,
+                                  admin_approved_public=True)
+        update_index.Command().handle(using=['default'])
+        response = self.client.get(self.url,{'q':msg.message})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, msg.sender_name)
+        self.assertNotContains(response, msg.recipient_name)
+        self.assertContains(response, msg.message)
+        self.assertNotContains(response, msg.sender_email)
+        self.assertNotContains(response, msg.recipient_email)
+
+    def test_named_message_indexed(self):
+        msg = MessageModelFactory(sender_approved_public=True, sender_approved_public_named=True,
+                                  recipient_approved_public=True, recipient_approved_public_named=True,
+                                  admin_approved_public=True)
+        update_index.Command().handle(using=['default'])
+        response = self.client.get(self.url,{'q':msg.message})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, msg.sender_name)
+        self.assertContains(response, msg.recipient_name)
+        self.assertContains(response, msg.message)
+        self.assertNotContains(response, msg.sender_email)
+        self.assertNotContains(response, msg.recipient_email)
+
+    def test_private_message_not_indexed(self):
+        MessageModelFactory(sender_approved_public=True, sender_approved_public_named=True,
+                            recipient_approved_public=True, recipient_approved_public_named=True,
+                            admin_approved_public=False)
+        MessageModelFactory(sender_approved_public=False, sender_approved_public_named=True,
+                            recipient_approved_public=True, recipient_approved_public_named=True,
+                            admin_approved_public=True)
+        msg = MessageModelFactory(sender_approved_public=True, sender_approved_public_named=True,
+                            recipient_approved_public=False, recipient_approved_public_named=True,
+                            admin_approved_public=True)
+        update_index.Command().handle(using=['default'])
+        response = self.client.get(self.url,{'q':msg.message})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['object_list']),0)
 
 class MessageCounterTest(TestCase):
     url = reverse('messaging:start')
@@ -18,17 +67,17 @@ class MessageCounterTest(TestCase):
     def test_message_sent_included(self):
         msg = MessageModelFactory(status="sent")
         response = self.client.get(self.url)
-        self.assertContains(response,"Packets sent: <b>1</b>")
+        self.assertEqual(response.context['packets_sent'],1)
 
     def test_message_read_included(self):
         msg = MessageModelFactory(status="read")
         response = self.client.get(self.url)
-        self.assertContains(response,"Packets sent: <b>1</b>")
+        self.assertEqual(response.context['packets_sent'],1)
 
     def test_message_to_be_confirmed_excluded(self):
         msg = MessageModelFactory(status="pending_sender_confirmation")
         response = self.client.get(self.url)
-        self.assertContains(response,"Packets sent: <b>0</b>")
+        self.assertEqual(response.context['packets_sent'],0)
 
 
 class StartViewTest(TestCase):
