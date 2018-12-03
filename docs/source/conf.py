@@ -20,8 +20,8 @@
 # -- Project information -----------------------------------------------------
 
 project = u'Fedora Happiness Packets'
-copyright = u'2018, Anna Philips, Fedora Project, and others'
-author = u'Anna Philips, Fedora Project, and others'
+copyright = u'2018, Fedora Project'
+author = u'Fedora Project'
 
 # The short X.Y version
 version = u''
