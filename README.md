@@ -1,6 +1,12 @@
-# Fedora-Happiness-Packets
+# fedora-happiness-packets
 
-Fedora-Happiness-Packets contains the codebase for fedora hosted version of [happinesspacks.io](https://happinesspackets.io) to be used during appreciation week. The live service is hosted [here](http://happinesspackets.fedorainfracloud.org).
+Fedora Account System authentication support and fedora-messaging integration to [Happiness Packets](https://happinesspackets.io) ([demo](https://happinesspackets.fedorainfracloud.org/))
+
+
+## Contributing guidelines
+
+See [CONTRIBUTING.md](https://pagure.io/fedora-commops/fedora-happiness-packets/blob/master/f/.project-docs/CONTRIBUTING.md) for project guidelines.
+
 
 ## Getting Started
 
