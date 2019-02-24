@@ -37,7 +37,8 @@
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">FAQ</a></li>
                 {% url 'messaging:archive' as url %}
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Happiness Archive</a></li>
-                {% if user.is_authenticated %}
+            </ul>
+            {% if user.is_authenticated %}
                 <form id="logout" action="{% url 'oidc_logout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-logout">
@@ -52,8 +53,7 @@
                     <span>&nbsp;Login</span>
                     </button>
                 </form>
-                {% endif %}
-            </ul>
+            {% endif %}
         </div>
     </aside>
     <main>
