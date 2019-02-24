@@ -1,32 +1,62 @@
-# fedora-happiness-packets
+# Fedora-Happiness-Packets
 
-This project contains the codebase for fedora hosted version of happinesspackets.io to be used during Appreciation week. The live service is hosted [here](http://happinesspackets.fedorainfracloud.org)
+Fedora-Happiness-Packets contains the codebase for fedora hosted version of [happinesspacks.io](https://happinesspackets.io) to be used during appreciation week. The live service is hosted [here](http://happinesspackets.fedorainfracloud.org).
 
-# Setup
+## Getting Started
 
-Make sure you have Docker and Docker Compose installed.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+You require the following things for the software to be installed.
+
+- Docker
+- Docker-Compose
+- Python (Version 3 is recommended)
+
+## Installing
+
+Clone the repository:
+
+```
+git clone https://pagure.io/fedora-commops/fedora-happiness-packets.git
+```
+
+Change the working directory to fedora-happiness-packets
+
+```
+cd fedora-happiness-packets
+```
 
 In order for the login and send views to work, you must supply an OpenID Connect Client ID and Client Secret:
 
-    chmod +x generate_client_secrets.sh 
-    ./generate_client_secrets.sh 
+```
+chmod +x generate_client_secrets.sh
+./generate_client_secrets.sh
+```
+
+## Running
 
 To run on http://localhost:8000/ :
-
-    docker-compose up
-
+```
+docker-compose up
+```
 After making any changes to the code, make sure to rebuild the container:
+```
+docker-compose up --build
+```
+## Testing
 
-    docker-compose up --build
-
-
-The ``t`` command is a very short shell script that runs the tests with the correct settings and reports on coverage.
-
-To run it:
-    
-    docker-compose exec web sh
-    ./t
-
+The `t` command is a very short shell script that runs the tests with the correct settings and reports on coverage.
+While the docker is up, in another shell run :
+```
+docker-compose exec web sh
+./t
+```
 To run the integration tests::
+```
+./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting
+```
+### License
 
-    ./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting
+This project is licensed under the Apache License - see LICENSE in files.
