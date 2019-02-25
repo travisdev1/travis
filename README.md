@@ -1,6 +1,16 @@
-# fedora-happiness-packets
+fedora-happiness-packets
+========================
+
+[![Documentation Status](https://readthedocs.org/projects/fedora-happiness-packets/badge/?version=latest)](https://fedora-happiness-packets.readthedocs.io/?badge=latest)
 
 Fedora Account System authentication support and fedora-messaging integration to [Happiness Packets](https://happinesspackets.io) ([demo](https://happinesspackets.fedorainfracloud.org/))
+
+
+## Documentation
+
+For more help, read the [project documentation](https://fedora-happiness-packets.readthedocs.io/):
+
+[**fedora-happiness-packets.readthedocs.io**](https://fedora-happiness-packets.readthedocs.io/)
 
 
 ## Contributing guidelines
