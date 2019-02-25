@@ -9,7 +9,7 @@ Using Docker
 
 The project comes with a Dockerfile that allows easy deployment of a web server.
 
-1. Install Docker and Docker Compose on your machine.
+1. Install Docker (refer `this <https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04>`_) and Docker Compose (refer `this <https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04>`_) on your machine.
 2. Run the client secret generation script::
 
     ./generate_client_secrets.sh
