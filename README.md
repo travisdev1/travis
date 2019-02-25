@@ -18,61 +18,32 @@ For more help, read the [project documentation](https://fedora-happiness-packets
 See [CONTRIBUTING.md](https://pagure.io/fedora-commops/fedora-happiness-packets/blob/master/f/.project-docs/CONTRIBUTING.md) for project guidelines.
 
 
-## Getting Started
+## Getting started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions run an instance of fedora-happiness-packets on your local machine for development and testing purposes.
 
-### Prerequisites
+### Create development environment
 
-You require the following things for the software to be installed.
+See [setup instructions](https://fedora-happiness-packets.readthedocs.io/setup/development/) in our documentation.
 
-- Docker
-- Docker-Compose
-- Python (Version 3 is recommended)
+### Testing
 
-## Installing
+The `t` command is a short script to run tests with the correct settings.
+It creates a report on test coverage.
+While Docker is running, run this command in another window:
 
-Clone the repository:
-
-```
-git clone https://pagure.io/fedora-commops/fedora-happiness-packets.git
-```
-
-Change the working directory to fedora-happiness-packets
-
-```
-cd fedora-happiness-packets
-```
-
-In order for the login and send views to work, you must supply an OpenID Connect Client ID and Client Secret:
-
-```
-chmod +x generate_client_secrets.sh
-./generate_client_secrets.sh
-```
-
-## Running
-
-To run on http://localhost:8000/ :
-```
-docker-compose up
-```
-After making any changes to the code, make sure to rebuild the container:
-```
-docker-compose up --build
-```
-## Testing
-
-The `t` command is a very short shell script that runs the tests with the correct settings and reports on coverage.
-While the docker is up, in another shell run :
-```
+```sh
 docker-compose exec web sh
 ./t
 ```
-To run the integration tests::
-```
-./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting
-```
-### License
 
-This project is licensed under the Apache License - see LICENSE in files.
+To run integration tests:
+
+```sh
+./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.testing
+```
+
+
+## Legal
+
+This project is licensed under the [Apache License](https://pagure.io/fedora-commops/fedora-happiness-packets/blob/master/f/LICENSE).
