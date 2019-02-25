@@ -10,9 +10,8 @@ Using Docker
 The project comes with a Dockerfile that allows easy deployment of a web server.
 
 1. Install Docker and Docker Compose on your machine.
-2. Run the client secret generation script:: 
+2. Run the client secret generation script::
 
-    chmod +x generate_client_secrets.sh
     ./generate_client_secrets.sh
 
 Although the Dockerfile runs the script to check if a client_secrets.json file is present, please generate it before starting the Docker container, so that client secrets are not being constantly generated every time the image is rebuilt.
