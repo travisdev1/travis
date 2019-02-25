@@ -1,10 +1,12 @@
 # automatically created files:
 .DS_Store
 
-virtualenv/
-.idea/workspace.xml
+## Sphinx: generated HTML
+docs/_build
 
 # other
+virtualenv/
+.idea/workspace.xml
 static
 build
 .idea
@@ -19,7 +21,6 @@ syntax: glob
 *.pyc
 *.swp
 *.sqlite3
-
 
 #OIDC credentials
 client_secrets.json
