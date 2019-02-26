@@ -10,6 +10,7 @@ Welcome to Fedora Happiness Packets's documentation!
    :maxdepth: 2
 
    setup/development
+   setup/development_windows
    setup/authentication
 
    model
