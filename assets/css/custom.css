@@ -101,6 +101,10 @@ blockquote {
     display: none;
 }
 
+.text-center.col-md-10{
+    padding: 0;
+}
+
 #div_id_hp {
     display: none;
 }
