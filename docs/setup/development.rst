@@ -9,7 +9,17 @@ Using Docker
 
 The project comes with a Dockerfile that allows easy deployment of a web server.
 
-1. Install Docker (refer `this <https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04>`_) and Docker Compose (refer `this <https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04>`_) on your machine.
+1. Install Docker (refer `this <https://docs.docker.com/install/>`_) and Docker Compose (refer `this <https://docs.docker.com/compose/install/>`_) on your machine.
+
+For platform specific installation guidelines:
+
+:macOS: `Docker Dekstop <https://docs.docker.com/docker-for-mac/install/>`_ (Docker Compose is included as part of desktop installs.)
+:Windows: `Docker Dekstop <https://docs.docker.com/docker-for-windows/install/>`_ (Docker Compose is included as part of desktop installs.)
+:CentOS: `Docker CE <https://docs.docker.com/install/linux/docker-ce/centos/>`_. For Docker Compose refer the above link.
+:Debian: `Docker CE <https://docs.docker.com/install/linux/docker-ce/debian/>`_. For Docker Compose refer the above link.
+:Fedora: `Docker CE <https://docs.docker.com/install/linux/docker-ce/fedora/>`_. For Docker Compose refer the above link.
+:Ununtu: `Docker CE <https://docs.docker.com/install/linux/docker-ce/ubuntu/>`_. For Docker Compose refer the above link.
+
 2. Run the client secret generation script::
 
     ./generate_client_secrets.sh
