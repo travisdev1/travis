@@ -13,12 +13,12 @@ The project comes with a Dockerfile that allows easy deployment of a web server.
 
 For platform specific installation guidelines:
 
-:macOS: `Docker Dekstop <https://docs.docker.com/docker-for-mac/install/>`_ (Docker Compose is included as part of desktop installs.)
-:Windows: `Docker Dekstop <https://docs.docker.com/docker-for-windows/install/>`_ (Docker Compose is included as part of desktop installs.)
-:CentOS: `Docker CE <https://docs.docker.com/install/linux/docker-ce/centos/>`_. For Docker Compose refer the above link.
-:Debian: `Docker CE <https://docs.docker.com/install/linux/docker-ce/debian/>`_. For Docker Compose refer the above link.
-:Fedora: `Docker CE <https://docs.docker.com/install/linux/docker-ce/fedora/>`_. For Docker Compose refer the above link.
-:Ununtu: `Docker CE <https://docs.docker.com/install/linux/docker-ce/ubuntu/>`_. For Docker Compose refer the above link.
+:macOS: `Docker Desktop <https://docs.docker.com/docker-for-mac/install/>`_ (Docker Compose is included as part of desktop installs.)
+:Windows: `Docker Desktop <https://docs.docker.com/docker-for-windows/install/>`_ (Docker Compose is included as part of desktop installs.)
+:CentOS: `Docker CE <https://docs.docker.com/install/linux/docker-ce/centos/>`_
+:Debian: `Docker CE <https://docs.docker.com/install/linux/docker-ce/debian/>`_
+:Fedora: `Fedora Developer Portal <https://developer.fedoraproject.org/tools/docker/docker-installation.html>`_
+:Ubuntu: `Docker CE <https://docs.docker.com/install/linux/docker-ce/ubuntu/>`_
 
 2. Run the client secret generation script::
 
