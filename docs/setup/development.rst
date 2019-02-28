@@ -27,6 +27,7 @@ For platform specific installation guidelines:
 Although the Dockerfile runs the script to check if a client_secrets.json file is present, please generate it before starting the Docker container, so that client secrets are not being constantly generated every time the image is rebuilt.
 
 In order to run the web server, alongside the Redis queue and celery worker instance, simply run ``docker-compose up``.
+After this, you can access the local development server at ``http://localhost:8000/`` in your web browser.
 
 If you have made any changes to the code, the Docker image must be rebuilt; this can be done my running ``docker-compose up --build``.
 
