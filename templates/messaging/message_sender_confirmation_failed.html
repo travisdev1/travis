@@ -14,6 +14,14 @@
         <div class="alert alert-info">
             You already confirmed this message.
         </div>
+    {% elif publish_returned %}
+        <div class="alert alert-info">
+            The message could not be sent because the broker rejected the message. Please try again later!
+        </div>
+    {% elif connection_exception %}
+        <div class="alert alert-info">
+            The message could not be sent because an error in connection occurred before the broker could send a publish confirmation. Please try again later. 
+        </div>
     {% endif %}
 
 {% endblock content %}

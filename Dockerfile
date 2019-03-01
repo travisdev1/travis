@@ -13,6 +13,9 @@ RUN pip install -r requirements/dev.txt
 # Set correct DJANGO_SETTINGS_MODULE
 ENV DJANGO_SETTINGS_MODULE=happinesspackets.settings.dev
 
+# Set the path for fedora-messaging configuration file
+ENV FEDORA_MESSAGING_CONF=/app/config.toml
+
 # Copy project files into container
 COPY . /app
 
@@ -24,5 +27,4 @@ RUN ./generate_client_secrets.sh
 RUN ./manage.py collectstatic --noinput
 
 # Expose Django port
-EXPOSE 8000 
-
+EXPOSE 8000

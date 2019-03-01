@@ -20,8 +20,12 @@ from haystack.forms import SearchForm
 from .forms import MessageSendForm, MessageRecipientForm
 from .models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail, strip_email
 
-logger = logging.getLogger(__name__)
+from fedora_messaging.api import publish
+from fedora_messaging.config import conf
+from fedora_messaging.exceptions import PublishReturned, ConnectionException
+from happinesspacket_schema.schema import MessageV1
 
+logger = logging.getLogger(__name__)
 
 class MessageSearchView(SearchView):
     template_name = 'search/search.html'
@@ -128,6 +132,22 @@ class MessageSenderConfirmationView(TemplateView):
             return self.render_to_response({'already_confirmed': True})
 
         message.send_to_recipient(self.request.is_secure(), self.request.get_host())
+
+        sender_name = self.request.user.username if message.sender_named else "Anonymous"
+        message = MessageV1(
+            topic="happinesspacket.send",
+            body={
+                "id": message.identifier,
+                "sender": sender_name,
+                "recipient": message.recipient_name
+            }    	         
+        )
+        try:
+            publish(message)
+        except PublishReturned:
+            return self.render_to_response({'publish_returned': True})
+        except ConnectionException:
+            return self.render_to_response({'connection_exception': True})
         return HttpResponseRedirect(reverse('messaging:sender_confirmed'))
 
 
@@ -149,10 +169,6 @@ class MessageRecipientMessageUpdate(UpdateView):
 
     def form_valid(self, form):
         form.save()
-        msg = self.get_queryset()[0]
-        if msg.sender_approved_public and msg.recipient_approved_public:
-            sender_name = msg.sender_name if msg.sender_approved_public_named else "Anonymous"
-            recipient_name = msg.recipient_name if msg.recipient_approved_public_named else "Anonymous"
         messages.success(self.request, "Your choices have been saved.")
         return HttpResponseRedirect(self.request.path)
 

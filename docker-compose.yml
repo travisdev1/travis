@@ -8,6 +8,15 @@ services:
     links:
       - db
       - redis
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:alpine
+    ports:
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_PASS: pass
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_VHOST: vhost
   redis:
     image: redis:alpine
     ports:

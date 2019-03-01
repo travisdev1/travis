@@ -6,7 +6,7 @@ django-braces==1.8.1
 django-crispy-forms==1.6.0
 django-model-utils==2.4
 dogslow==0.9.7                       # For logging details about very slow requests
-six==1.10.0                          # Dependency of django-extensions
+six>=1.11.0                          # Dependency of django-extensions
 
 # Basic Python libraries
 Unipath==1.1          # Better path handling
@@ -33,6 +33,8 @@ python-dateutil==2.5.0
 factory-boy==2.9.2
 opbeat==3.3
 mozilla-django-oidc==1.0.0
+fedora-messaging>=1.4.0
+happinesspacket-schema>=0.1.2
 celery[redis]==4.2.1
 django-celery-email==2.0.1
 psycopg2==2.7.5 # PostgreSQL driver
