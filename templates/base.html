@@ -69,26 +69,28 @@
                     {% block content %}{% endblock %}
                 </div>
             </div>
-            <footer class="text-center col-md-10"><small>
-                <hr>
-                {% block footer %}
-                {% include "follow.html" %}
-                <br>
-                {% endblock %}
-                Fedora Happiness Packets is a fork of <a href="https://github.com/mxsasha/happinesspackets/">Happiness Packets</a> and part of GSoC 2018.
-                <br>
-                Need help? <a href="mailto:fedora.happinesspackets@gmail.com">fedora.happinesspackets@gmail.com</a>
-                <img class="emoji" src="{% static 'images/emoji/loveletter.png' %}" alt="💌" title="Love letter" aria-label="Emoji: Love letter" style="vertical-align: text-bottom">
-                <br>
-                Got feedback? File an issue <a href="https://pagure.io/fedora-commops/fedora-happiness-packets/new_issue">here</a>
-                <br>
-                <a href="https://www.facebook.com/TheFedoraProject"><i class="fab fa-facebook-f fa-lg"></i></a>
-                &nbsp;
-                <a href="https://twitter.com/fedora"><i class="fab fa-twitter fa-lg"></i></a>
-                &nbsp;
-                <a href="https://plus.google.com/112917221531140868607"><i class="fab fa-google-plus-g fa-lg"></i></a>
-            </small></footer>
         </div>
-    </main>
-</body>
+            <footer class="footer">
+              <small>
+                  <hr>
+                  {% block footer %}
+                  {% include "follow.html" %}
+                  <div class="footer-msg">
+                    {% endblock %}
+                    Fedora Happiness Packets is a fork of <a href="https://github.com/mxsasha/happinesspackets/">Happiness Packets</a> and part of GSoC 2018.
+                    <br>
+                    Need help? <a href="mailto:fedora.happinesspackets@gmail.com">fedora.happinesspackets@gmail.com</a>
+                    <img class="emoji" src="{% static 'images/emoji/loveletter.png' %}" alt="💌" title="Love letter" aria-label="Emoji: Love letter" style="vertical-align: text-bottom">
+                    <br>
+                    Got feedback? File an issue <a href="https://pagure.io/fedora-commops/fedora-happiness-packets/new_issue">here</a>
+                  </div>
+                  <div class="socio-buttons">
+                  <a href="https://www.facebook.com/TheFedoraProject"><i class="fab fa-facebook-f fa-lg"></i></a>
+                  <a href="https://twitter.com/fedora"><i class="fab fa-twitter fa-lg"></i></a>
+                  <a href="https://plus.google.com/112917221531140868607"><i class="fab fa-google-plus-g fa-lg"></i></a>
+                </div>
+              </small>
+            </footer>
+        </main>
+    </body>
 </html>

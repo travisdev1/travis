@@ -40,12 +40,11 @@ aside .sidebar .logo {
     margin: 30px 0;
 }
 
-main {
-    margin-bottom: 30px;
-}
-
 footer {
-    text-align: right;
+    text-align: center;
+    padding:0 7vw;
+    box-shadow: 0px -4px 5px 0px rgba(60, 110, 180, 0.27);
+    background-color: #3c6eb421;
 }
 
 fieldset {
@@ -99,10 +98,6 @@ blockquote {
 
 .asteriskField {
     display: none;
-}
-
-.text-center.col-md-10{
-    padding: 0;
 }
 
 #div_id_hp {
@@ -224,4 +219,31 @@ blockquote {
     aside .sidebar .logo {
         width: 100%;
     }
+}
+.wearefedora {
+    color: #3c6eb4;
+    font-weight: 600;
+    font-size:2.3rem;
+}
+.footer-msg {
+    padding-top: 0.5rem;
+}
+.footer-msg p {
+  font-size: 2rem;
+}
+.footer-msg a {
+    font-weight: 600;
+}
+.row p {
+    font-size: 2rem;
+}
+.footer-share p{
+    font-size: 2rem;
+}
+.socio-buttons {
+    padding: 1rem;
+    font-size: 2rem;
+}
+.socio-buttons a {
+    padding: 0.9rem;
 }
