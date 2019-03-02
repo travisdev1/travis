@@ -6,8 +6,13 @@ This page contains frequently asked questions about fedora-happiness-packets.
 It includes troubleshooting steps and other project details.
 
 
-Example question formatted like this
-    Example answer formatted like this.
-    Write each new sentence on a new line.
-    It makes it easier to read in git diffs (i.e. in a pull request).
+ERROR: Couldn't connect to Docker deamon at http+docker://localhost-is it running? 
+    Verify the logged in user is member of the docker group.
+    To verify logged in user run::
+
+ 	sudo usermod -aG docker ${USER}
+    
+    If logged in user is not member of the docker group add it using::
+
+	sudo gpasswd -a${USER}
 
