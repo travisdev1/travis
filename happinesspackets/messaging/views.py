@@ -16,8 +16,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import MessageSendForm, MessageRecipientForm
 from .models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail, strip_email
 
-import fedmsg
-
 logger = logging.getLogger(__name__)
 
 
@@ -147,6 +145,5 @@ class MessageRecipientMessageUpdate(UpdateView):
         if msg.sender_approved_public and msg.recipient_approved_public:
             sender_name = msg.sender_name if msg.sender_approved_public_named else "Anonymous"
             recipient_name = msg.recipient_name if msg.recipient_approved_public_named else "Anonymous"
-            fedmsg.publish(topic='happinesspacket.send', msg={'id': msg.identifier, 'sender_name': sender_name, 'recipient_name': recipient_name, 'text': msg.message,})
         messages.success(self.request, "Your choices have been saved.")
         return HttpResponseRedirect(self.request.path)
