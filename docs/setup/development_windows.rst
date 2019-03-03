@@ -18,7 +18,7 @@ You will need the following programs installed on your system before proceeding 
 Setting up the development environment
 ========================================
 
-#. Fork the `current repository <https://pagure.io/fedora-commops/fedora-happiness-packets>`_ to your profile .
+#. Fork the `current repository <https://pagure.io/fedora-commops/fedora-happiness-packets>`_ to your profile.
 #. Clone this forked repository to your system using Git with the following command::
 
     git clone "https://pagure.io/forks/<user_name>/fedora-commops/fedora-happiness-packets.git"
@@ -74,11 +74,12 @@ In order to run tests, make sure to execute ``docker-compose up`` command. Now i
     docker-compose exec web sh
 
 Then the terminal will show a ``#`` symbol.
-Simply type in ``t`` to initiate the test suite.
+Simply type in ``./t`` (or ``t``) to initiate the test suite.
 
-(The test suite are run by running the ``t`` script, which runs the tests with the appropriate testing settings and provides a coverage report.)
+(The test suite are run by running the ``./t`` script, which runs the tests with the appropriate testing settings and provides a coverage report.)
 
 Integration tests are run via the following command::
 
-    manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting
+    docker-compose exec web ./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting
 
+If a ``file not found`` error occurs, try removing the ``./`` from the command and try again.
