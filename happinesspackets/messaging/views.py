@@ -12,6 +12,7 @@ from django.utils.html import format_html
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, TemplateView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 from .forms import MessageSendForm, MessageRecipientForm
 from .models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail, strip_email
@@ -147,3 +148,30 @@ class MessageRecipientMessageUpdate(UpdateView):
             recipient_name = msg.recipient_name if msg.recipient_approved_public_named else "Anonymous"
         messages.success(self.request, "Your choices have been saved.")
         return HttpResponseRedirect(self.request.path)
+
+
+class UserMessageView(LoginRequiredMixin, ListView):
+    login_url = '/oidc/authenticate/'
+    model = Message
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super(UserMessageView, self).get_queryset()
+        return queryset.filter(Q(status='sent') | Q(status='read'))
+
+
+class ReceivedMessagesView(UserMessageView):
+    template_name = 'messaging/received_messages.html'
+
+    def get_queryset(self):
+        fedoraproject_email = str(self.request.user.username) + '@fedoraproject.org'
+        queryset = super(ReceivedMessagesView, self).get_queryset()
+        return queryset.filter(Q(recipient_email=self.request.user.email) | Q(recipient_email=fedoraproject_email))
+
+
+class SentMessagesView(UserMessageView):
+    template_name = 'messaging/sent_messages.html'
+
+    def get_queryset(self):
+        queryset = super(SentMessagesView, self).get_queryset()
+        return queryset.filter(sender_email=self.request.user.email)
