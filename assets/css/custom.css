@@ -1,3 +1,8 @@
+:root{
+    --primary-color: #3c6eb4;
+    --secondary-color: #294172;
+}
+
 body {
     font-family: 'Open Sans';
     line-height: 1.8em;
@@ -10,11 +15,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a, a:hover {
-    color: #294172;
+    color: var(--secondary-color);
 }
 
 aside {
-    background: #3c6eb4;
+    background: var(--primary-color);
     margin: -20px 0 0 0;
 }
 
@@ -76,16 +81,16 @@ blockquote {
 
 .btn {
     background: white;
-    border: 1px solid #294172;
-    color: #294172;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
     text-transform: uppercase;
     padding: 0.9em 1.3em;
 }
 
 .btn:hover {
-    background: #294172;
+    background: var(--secondary-color);
     color: white;
-    border: 1px solid #294172;
+    border: 1px solid var(--secondary-color);
 }
 
 .row.content {
@@ -115,9 +120,9 @@ blockquote {
         position: fixed;
         display: flex;
         justify-content: center;
-        background: -moz-linear-gradient(top,  #3c6eb4 0%, #3c6eb4 27%, #3c6eb4 27%, #3c6eb4 100%);
-        background: -webkit-linear-gradient(top,  #3c6eb4 0%, #3c6eb4 27%, #3c6eb4 27%, #3c6eb4 100%);
-        background: linear-gradient(to bottom,  #3c6eb4 0%, #3c6eb4 27%, #3c6eb4 27%, #3c6eb4 100%);
+        background: -moz-linear-gradient(top,  var(--primary-color) 0%, var(--primary-color) 27%, var(--primary-color) 27%, var(--primary-color) 100%);
+        background: -webkit-linear-gradient(top,  var(--primary-color) 0%, var(--primary-color) 27%, var(--primary-color) 27%, var(--primary-color) 100%);
+        background: linear-gradient(to bottom,  var(--primary-color) 0%, var(--primary-color) 27%, var(--primary-color) 27%, var(--primary-color) 100%);
     }
 
     aside .sidebar {
@@ -221,7 +226,7 @@ blockquote {
     }
 }
 .wearefedora {
-    color: #3c6eb4;
+    color: var(--primary-color);
     font-weight: 600;
     font-size:2.3rem;
 }
