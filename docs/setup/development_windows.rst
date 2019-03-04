@@ -19,7 +19,7 @@ Setting up the development environment
 ========================================
 
 #. Fork the `current repository <https://pagure.io/fedora-commops/fedora-happiness-packets>`_ to your profile.
-#. Clone this forked repository to your system using Git with the following command::
+#. Clone this forked repository (ssh method is recommended, the steps can be found `here <https://docs.pagure.org/pagure/usage/first_steps.html>`_) to your system using Git with the following command::
 
     git clone "https://pagure.io/forks/<user_name>/fedora-commops/fedora-happiness-packets.git"
 

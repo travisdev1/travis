@@ -9,18 +9,22 @@ Using Docker
 
 The project comes with a Dockerfile that allows easy deployment of a web server.
 
-1. Install Docker (refer `this <https://docs.docker.com/install/>`_) and Docker Compose (refer `this <https://docs.docker.com/compose/install/>`_) on your machine.
+#. Install Docker (refer `this <https://docs.docker.com/install/>`_) and Docker Compose (refer `this <https://docs.docker.com/compose/install/>`_) on your machine.
 
-For platform specific installation guidelines:
+    For platform specific installation guidelines:
 
-:macOS: `Docker Desktop <https://docs.docker.com/docker-for-mac/install/>`_ (Docker Compose is included as part of desktop installs.)
-:Windows: `Docker Desktop <https://docs.docker.com/docker-for-windows/install/>`_ (Docker Compose is included as part of desktop installs.)
-:CentOS: `Docker CE <https://docs.docker.com/install/linux/docker-ce/centos/>`_
-:Debian: `Docker CE <https://docs.docker.com/install/linux/docker-ce/debian/>`_
-:Fedora: `Fedora Developer Portal <https://developer.fedoraproject.org/tools/docker/docker-installation.html>`_
-:Ubuntu: `Docker CE <https://docs.docker.com/install/linux/docker-ce/ubuntu/>`_
+    :macOS: `Docker Desktop <https://docs.docker.com/docker-for-mac/install/>`_ (Docker Compose is included as part of desktop installs.)
+    :Windows: `Docker Desktop <https://docs.docker.com/docker-for-windows/install/>`_ (Docker Compose is included as part of desktop installs.)
+    :CentOS: `Docker CE <https://docs.docker.com/install/linux/docker-ce/centos/>`_
+    :Debian: `Docker CE <https://docs.docker.com/install/linux/docker-ce/debian/>`_
+    :Fedora: `Fedora Developer Portal <https://developer.fedoraproject.org/tools/docker/docker-installation.html>`_
+    :Ubuntu: `Docker CE <https://docs.docker.com/install/linux/docker-ce/ubuntu/>`_
 
-2. Run the client secret generation script::
+#. Fork the repository, then clone using ``ssh``. For steps to setup ``ssh``, refer `this <https://docs.pagure.org/pagure/usage/first_steps.html>`_ ::
+
+    git clone "ssh://git@pagure.io/forks/<user_name>/fedora-commops/fedora-happiness-packets.git"
+
+#. Run the client secret generation script::
 
     ./generate_client_secrets.sh
 
@@ -37,7 +41,7 @@ Access the shell of the Docker container by running ``docker-compose exec web sh
 The test suite can be run by running the ``t`` script, which runs the tests with the appropriate testing settings and provides a coverage report.
 In order to run the script, simply type ``./t`` in the Docker container's shell.
 
-Integration tests are run via the following command: ``./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting``
+Integration tests are run via the following command: ``docker-compose exec web ./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting``
 
 
 Alternatives to Docker
