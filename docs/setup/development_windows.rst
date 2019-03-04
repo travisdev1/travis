@@ -34,7 +34,6 @@ Setting up the development environment
 #. Start the Docker application(With elevated/admin access).
 #. Run the client secret generation script::
 
-    chmod +x generate_client_secrets.sh
     generate_client_secrets.sh
 
     Here, you might get an error saying::
