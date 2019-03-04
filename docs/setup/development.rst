@@ -24,6 +24,10 @@ The project comes with a Dockerfile that allows easy deployment of a web server.
 
     git clone "ssh://git@pagure.io/forks/<user_name>/fedora-commops/fedora-happiness-packets.git"
 
+#. Change into the repository directory::
+
+    cd fedora-happiness-packets
+
 #. Run the client secret generation script::
 
     ./generate_client_secrets.sh
