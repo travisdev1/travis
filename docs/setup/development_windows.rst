@@ -10,7 +10,12 @@ Prerequisites
 You will need the following programs installed on your system before proceeding with the setup.
 
 #. `Git <https://git-scm.com/>`_
-#. `Python <https://www.python.org/downloads/>`_ (version >= 3.5)
+#. `Python <https://www.python.org/downloads/release/python-2716/>`_ (version = 2.7)
+
+.. note::
+    We will be soon migrating to `Python <https://www.python.org/downloads/>`_ (version >=3.5) as Python 2.7 will reach end of support in 2020. More details can be found `here <https://pagure.io/fedora-commops/fedora-happiness-packets/issue/150>`_.             
+
+
 #. `Docker Desktop for Windows <https://hub.docker.com/editions/community/docker-ce-desktop-windows>`_ (Download, installation, and run instructions available)
 #. Docker Compose (Docker Compose is included as part of Docker Desktop, but if you still need to download it, you can do it from `here <https://docs.docker.com/compose/install/>`_)
 
