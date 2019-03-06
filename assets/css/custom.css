@@ -81,16 +81,41 @@ blockquote {
 
 .btn {
     background: white;
-    border: 1px solid var(--secondary-color);
     color: var(--secondary-color);
-    text-transform: uppercase;
     padding: 0.9em 1.3em;
+    margin: 2em;
+    border: 2px solid var(--secondary-color);
+    border-radius: 2em;
+    text-transform: uppercase;
 }
 
 .btn:hover {
     background: var(--secondary-color);
     color: white;
-    border: 1px solid var(--secondary-color);
+    font-weight: bold;
+}
+
+.btn-primary:hover{
+    font-weight: normal;
+    border-color: var(--secondary-color);
+}
+
+.btn-primary:hover img.emoji{
+    transition: 0.6s ease-in;
+    transform: scale(1.08) rotate(360deg);
+}
+
+.btn-login, .btn-logout {
+  background: none;
+  color: white;
+  border-color: #fff;
+  padding: 14px 20px 12px 20px;
+}
+
+.btn-login:hover, .btn-logout:hover{
+    background: #fff;
+    color: var(--primary-color);
+    border-color: #fff;
 }
 
 .row.content {
@@ -161,18 +186,6 @@ blockquote {
 
 .emoji {
     vertical-align: initial;
-}
-
-.btn-login, .btn-logout {
-  background: none;
-  color: white;
-  border: none;
-}
-
-.btn-login:hover, .btn-logout:hover {
-    background: none;
-    color: white;
-    border: none;
 }
 
 .sharebutton {
