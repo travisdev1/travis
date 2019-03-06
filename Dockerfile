@@ -1,4 +1,5 @@
-FROM python:2-alpine
+#Issue with celery=4.2.1 with Py3.7 hence Py3.6.8 used
+FROM python:3.6.8-alpine
 
 # Set current working directory
 WORKDIR /app

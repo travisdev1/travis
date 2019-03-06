@@ -2,16 +2,21 @@ from __future__ import unicode_literals
 
 import django
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import include, re_path, path
+from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^oidc/', include('mozilla_django_oidc.urls')),
-    url(r'^', include('happinesspackets.messaging.urls', namespace="messaging")),
+    re_path(r'^oidc/', include('mozilla_django_oidc.urls')),
+    re_path(r'^', include('happinesspackets.messaging.urls')),
 ]
 
 if settings.ADMIN_ENABLED or settings.DEBUG:
-    urlpatterns.append(url(r'^drunken-octo-lama/', include(admin.site.urls)))
+    urlpatterns.append(re_path(r'^drunken-octo-lama/', admin.site.urls))
 
 if settings.DEBUG:
-    urlpatterns.append(url(r'^media/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.MEDIA_ROOT}))
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls))
+        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

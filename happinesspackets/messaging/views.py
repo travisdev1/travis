@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import logging
 
 from django.contrib import messages
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect, Http404
 from django.utils.crypto import salted_hmac, constant_time_compare
 from django.utils.decorators import method_decorator
@@ -13,6 +13,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import FormView, TemplateView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.shortcuts import render
 
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
@@ -126,10 +127,10 @@ class MessageSenderConfirmationView(TemplateView):
         try:
             message = Message.objects.get(identifier=kwargs['identifier'], sender_email_token=kwargs['token'])
         except Message.DoesNotExist:
-            return self.render_to_response({'not_found': True})
+            return render(request, self.template_name, {'not_found': True})
 
         if message.status != Message.STATUS.pending_sender_confirmation:
-            return self.render_to_response({'already_confirmed': True})
+            return render(request, self.template_name, {'already_confirmed': True})
 
         message.send_to_recipient(self.request.is_secure(), self.request.get_host())
 
@@ -145,9 +146,9 @@ class MessageSenderConfirmationView(TemplateView):
         try:
             publish(message)
         except PublishReturned:
-            return self.render_to_response({'publish_returned': True})
+            return render(request, self.template_name, {'publish_returned': True})
         except ConnectionException:
-            return self.render_to_response({'connection_exception': True})
+            return render(request, self.template_name, {'connection_exception': True})
         return HttpResponseRedirect(reverse('messaging:sender_confirmed'))
 
 

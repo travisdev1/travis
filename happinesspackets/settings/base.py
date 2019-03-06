@@ -60,7 +60,7 @@ STATICFILES_DIRS = (
 )
 
 # noinspection PyUnresolvedReferences
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'happinesspackets.utils.middleware.SetRemoteAddrFromForwardedFor',
     'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core import mail
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.utils.crypto import salted_hmac
 from haystack.management.commands import update_index

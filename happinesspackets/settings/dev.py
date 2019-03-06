@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # noinspection PyUnresolvedReferences
 import json
+import sys
 
 from .base import *  # noqa
 
@@ -39,7 +40,7 @@ CSRF_COOKIE_SECURE = False
 
 ADMIN_ENABLED = True
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'happinesspackets.utils.middleware.SetRemoteAddrFromForwardedFor',
@@ -47,12 +48,16 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-INSTALLED_APPS += (
-    'debug_toolbar',
-)
+TESTING = 'test' in sys.argv
+
+if not TESTING:
+
+    MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
 
 SELENIUM_SCREENSHOT_DIR = PROJECT_DIR.child('selenium-screenshots')
 

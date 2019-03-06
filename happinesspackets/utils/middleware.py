@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
+from django.utils.deprecation import MiddlewareMixin
 
-
-class SetRemoteAddrFromForwardedFor(object):
+class SetRemoteAddrFromForwardedFor(MiddlewareMixin):
     """
     Middleware that sets REMOTE_ADDR based on HTTP_X_FORWARDED_FOR, if the
     latter is set. This is useful if you're sitting behind a reverse proxy that
