@@ -2,7 +2,7 @@ Contributing to fedora-happiness-packets
 ========================================
 
 These guidelines explain how to submit changes to [fedora-happiness-packets](https://pagure.io/fedora-commops/fedora-happiness-packets).
-Following these guidelines help maintainers review new pull requests.
+Following these guidelines help maintainers respond to new tickets and pull requests.
 Not following these guidelines may make it harder or take longer to review your change.
 If you have questions about any of these guidelines, please ask in the [Community Operations team channels](https://docs.fedoraproject.org/en-US/commops/#find-commops).
 
@@ -19,16 +19,16 @@ More goals may be added to this list in the future.
 ### 1. fedora-happiness-packets is a fork.
 
 [fedora-happiness-packets](https://pagure.io/fedora-commops/fedora-happiness-packets) is a fork of [mxsasha/happinesspackets](https://github.com/mxsasha/happinesspackets).
-The upstream project is also active and in use.
+The upstream project is also active and still in use.
 As a considerate downstream, if a change could also help upstream, we should direct changes there.
-Any changes directed to upstream should be [good pull requests](https://medium.com/@hugooodias/the-anatomy-of-a-perfect-pull-request-567382bb6067).
+If a change to our project is also useful to upstream, **always [file a new issue](https://github.com/mxsasha/happinesspackets/issues/new) to see if upstream wants to accept a change**.
 A positive relationship with our upstream project is important.
 
 ### 2. fedora-happiness-packets supports changes required for deployment in Fedora community.
 
 Changes to fedora-happiness-packets should generally be Fedora-specific.
-This could include [fedora-messaging](https://fedora-messaging.readthedocs.io/) support, Fedora-related design changes, or integrating into other parts of the Fedora community.
-Sometimes there may be exceptions.
+This includes [fedora-messaging](https://fedora-messaging.readthedocs.io/) support, Fedora-related design changes, or integrating into other parts of the Fedora community.
+Sometimes there are exceptions.
 When deciding exceptions, always consider Goal 1.
 
 ### 3. Good code is tested code.
@@ -64,6 +64,16 @@ Finally, **leave a comment** in the ticket you want to work on.
 A maintainer will reply asking for more information or they will assign the ticket to you.
 When you are assigned a ticket, this means you are approved to work on it.
 
+### Inactive tickets
+
+Sometimes, an assignee of a ticket may no longer have time to work on a ticket.
+**After five days of no updates, a ticket can be reassigned by a project maintainer.**
+This DOES NOT mean all tickets must be solved in five days.
+It DOES mean if an assignee does not respond to new comments in a ticket after five days of their last comment, it can be re-assigned.
+This helps to keep tickets open and available for those who have time to work on them.
+
+If you are working on a ticket and more than five days have passed since your last comment, please give an update when possible.
+
 
 ## Submit a pull request
 
@@ -78,3 +88,13 @@ Stick to the guidelines for quicker and easier pull request reviews.
     3. Any specific details to consider?
     4. What do you think is the outcome of this change?
 4. Include screenshots of before/after if your change is a front-end change.
+
+
+## Maintainer response time
+
+Project maintainers / mentors are committed to **no more than three days for a reply** during Fedora Summer Coding project cycles.
+Current maintainers are volunteers working on the project, so we try to keep up with the project as best we can.
+If more than three days have passed and you have not received a reply, follow up with the [Community Operations team channels](https://docs.fedoraproject.org/en-US/commops/#find-commops) team.
+Someone may have missed your comment – we are not intentionally ignoring anyone.
+
+_Remember_, using the new ticket templates and answering the above questions in new pull requests likely reduces response time from a maintainer to your ticket / PR.
