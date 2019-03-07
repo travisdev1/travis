@@ -38,3 +38,13 @@ No sample messages on the main page and no messages in Archives, even though bot
         message.save()
 
     Now when you access Archives, the message can be seen.
+
+ERROR: for fedora-happiness-packets_redis_1  Cannot start service redis: driver failed programming external connectivity on endpoint fedora-happiness-packets_redis_1 starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use
+    A redis service is already running on your machine. To see what process is running use::
+
+        sudo netstat -lnp
+
+    End the running process run the web server again using ``docker-compose up``.
+    To see processes running on a particular port (eg: 0.0.0.0:6379) Use ``grep`` to filter for that specific port::
+
+        sudo netstat -tulnp | grep 6379
