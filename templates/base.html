@@ -32,20 +32,20 @@
                     <li><a>Total Happiness Spread: <b>{{ packets_sent }} 🎉</b></a></li>
                 {% endif %}
                 {% url 'messaging:send' as url %}
-                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Send some happiness!</a></li>
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Send some happiness!</a></li>
                 {% url 'messaging:start' as url %}
-                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">What are Happiness Packets?</a></li>
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">What are Happiness Packets?</a></li>
                 {% url 'messaging:inspiration' as url %}
-                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Get inspired</a></li>
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Get inspired</a></li>
                 {% url 'messaging:faq' as url %}
-                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">FAQ</a></li>
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">FAQ</a></li>
                 {% url 'messaging:archive' as url %}
-                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Happiness Archive</a></li>
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Happiness Archive</a></li>
             {% if user.is_authenticated %}
                 {% url 'messaging:received_messages' as url %}
-                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">My Received Packets</a></li>
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">My Received Packets</a></li>
                 {% url 'messaging:sent_messages' as url %}
-                <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">My Sent Packets</a></li>
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">My Sent Packets</a></li>
                 </ul>
                 <form id="logout" action="{% url 'oidc_logout' %}" method="post">
                     {% csrf_token %}
