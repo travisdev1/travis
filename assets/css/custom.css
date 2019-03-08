@@ -33,6 +33,14 @@ aside .sidebar a {
     color: white;
     font-family: Montserrat;
     font-size: 18px;
+    cursor: pointer;
+}
+
+aside .sidebar .total-packets {
+    cursor: default;
+}
+aside .sidebar .total-packets:hover{
+  text-decoration: none;
 }
 
 aside .sidebar a:hover {

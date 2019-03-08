@@ -28,9 +28,9 @@
             <a href="{{ url }}"><img src="{% static 'images/logo.png' %}" alt="Open-Source Happiness Packets" class="logo"/></a>
             <ul class="nav nav-stacked">
                 {% if packets_sent == 0 %}
-                    <li><a>Total Happiness Spread: <b>{{ packets_sent }} 💔</b></a></li>
+                    <li><a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 💔</b></a></li>
                 {% else %}
-                    <li><a>Total Happiness Spread: <b>{{ packets_sent }} 🎉</b></a></li>
+                    <li><a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 🎉</b></a></li>
                 {% endif %}
                 {% url 'messaging:send' as url %}
                 <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Send some happiness!</a></li>
