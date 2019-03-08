@@ -27,13 +27,38 @@
             {% url 'messaging:start' as url %}
             <a href="{{ url }}"><img src="{% static 'images/logo.png' %}" alt="Open-Source Happiness Packets" class="logo"/></a>
             <ul class="nav nav-stacked">
+                {% if user.is_authenticated %}
+                    <h3> {{ user.username }}</h3>
+                    {% url 'messaging:send' as url %}
+                    <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Send some happiness!</a></li>
+                    {% url 'messaging:received_messages' as url %}
+                    <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">My Received Packets</a></li>
+                    {% url 'messaging:sent_messages' as url %}
+                    <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">My Sent Packets</a></li>
+                  <form id="logout" action="{% url 'oidc_logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-logout">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    <span>&nbsp;Logout</span>
+                    </button>
+                  </form>
+                {% else %}
+                    <form id="login" action="{% url 'oidc_authentication_init' %}" method="get">
+                        <button type="submit" class="btn btn-login">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        <span>&nbsp;Login</span>
+                        </button>
+                    </form>
+                {% endif %}
                 {% if packets_sent == 0 %}
                     <li><a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 💔</b></a></li>
                 {% else %}
                     <li><a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 🎉</b></a></li>
                 {% endif %}
-                {% url 'messaging:send' as url %}
-                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Send some happiness!</a></li>
+                {% if not user.is_authenticated %}
+                  {% url 'messaging:send' as url %}
+                  <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Send some happiness!</a></li>
+                {% endif %}
                 {% url 'messaging:start' as url %}
                 <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">What are Happiness Packets?</a></li>
                 {% url 'messaging:inspiration' as url %}
@@ -44,27 +69,7 @@
                 <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Happiness Archive</a></li>
                 {% url 'messaging:search' as url %}
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Search the Archive</a></li>
-            {% if user.is_authenticated %}
-                {% url 'messaging:received_messages' as url %}
-                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">My Received Packets</a></li>
-                {% url 'messaging:sent_messages' as url %}
-                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">My Sent Packets</a></li>
-                </ul>
-                <form id="logout" action="{% url 'oidc_logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-logout">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    <span>&nbsp;Logout</span>
-                    </button>
-                </form>
-                {% else %}
-                <form id="login" action="{% url 'oidc_authentication_init' %}" method="get">
-                    <button type="submit" class="btn btn-login">
-                    <span class="glyphicon glyphicon-log-in"></span>
-                    <span>&nbsp;Login</span>
-                    </button>
-                </form>
-            {% endif %}
+              </ul>
         </div>
     </aside>
     <main>
