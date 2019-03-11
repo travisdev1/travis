@@ -45,6 +45,15 @@ aside .sidebar .logo {
     margin: 30px 0;
 }
 
+li.active[role="presentation"] a{
+    background: #fff;
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 2em;
+    margin-right: -100%;
+    padding-right: calc(100% + 10px);
+}
+
 footer {
     text-align: center;
     padding:0 7vw;
@@ -174,6 +183,17 @@ blockquote {
 
     .row.content {
         min-height: 500px;
+    }
+}
+
+@media (max-width: 975px){
+    li.active[role="presentation"] a{
+        background: #fff;
+        color: var(--primary-color);
+        font-weight: bold;
+        border-radius: 2em;
+        margin-right: 0;
+        padding-right: 15px;
     }
 }
 
