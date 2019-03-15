@@ -66,6 +66,7 @@ footer {
     text-align: center;
     padding:0 7vw;
     background-color: #3c6eb421;
+    position: relative;
 }
 
 fieldset {
