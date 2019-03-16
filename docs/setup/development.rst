@@ -47,6 +47,11 @@ In order to run the script, simply type ``./t`` in the Docker container's shell.
 
 Integration tests are run via the following command: ``docker-compose exec web ./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting``
 
+To test if messages are being sent to the RabbitMQ broker, open a new terminal and run the following command inside the shell of the Docker conatiner `web`::
+
+    fedora-messaging consume --callback=fedora_messaging.example:printer
+
+The messages sent to the RabbitMQ broker, when a sender confirms sending a happiness packet, will be printed in this terminal.
 
 Alternatives to Docker
 ======================
