@@ -3,6 +3,7 @@ fedora-happiness-packets
 
 [![Join us at #fedora-commops on freenode.net](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://webchat.freenode.net/?channels=fedora-commops "Join us at #fedora-commops on freenode.net")
 [![Documentation Status](https://readthedocs.org/projects/fedora-happiness-packets/badge/?version=latest)](https://fedora-happiness-packets.readthedocs.io/?badge=latest)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Fedora Account System authentication support and fedora-messaging integration to [Happiness Packets](https://happinesspackets.io) ([demo](https://happinesspackets.fedorainfracloud.org/))
 
