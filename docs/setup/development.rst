@@ -47,7 +47,24 @@ In order to run the script, simply type ``./t`` in the Docker container's shell.
 
 Integration tests are run via the following command: ``docker-compose exec web ./manage.py test -v 2 -p integration_test*.py --settings=happinesspackets.settings.tsting``
 
-To test if messages are being sent to the RabbitMQ broker, open a new terminal and run the following command inside the shell of the Docker conatiner `web`::
+Alternative methods to test sending email
+-----------------------------------------
+
+In the development environment sending emails is setup in two ways:
+
+* The default setup is to send emails on the console. The settings for the same can be found under the comment ``Configurations for sending email on console``. To see this in action, no changes to the present code base is needed. 
+
+* Emails are also configured to send using Gmail SMTP server. To test this functionality:
+
+  1. In ``settings/dev.py`` un-comment the setting for ``Configurations to test sending emails using Gmail SMTP`` and comment out the setting under ``Configurations for sending email on console`` and in ``docker-compose.yml`` un-comment the ports setting in ``celery`` service.
+  2. Enable `less secure apps <https://myaccount.google.com/lesssecureapps>`_ in the Gmail account which you want to use as the host email. 
+     (It is strongly recommended to not allow less secure apps in your primary Gmail account. A separate account for testing is recommended with this setting enabled.)
+  3. Replace ``<HOST@EMAIL.COM>`` and ``<HOST_EMAIL_PASSWORD>`` with the email address of the above account and its password.
+
+Testing Fedora Messaging Integration
+--------------------------------------
+
+To test if messages are being sent to the RabbitMQ broker, open a new terminal and run the following command inside the shell of the Docker container `web`::
 
     fedora-messaging consume --callback=fedora_messaging.example:printer
 

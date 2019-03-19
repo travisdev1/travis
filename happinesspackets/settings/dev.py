@@ -21,8 +21,18 @@ DATABASES = {
     }
 }
 
+#Configurations to send email on console
 CELERY_EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+#Configurations to test sending emails using Gmail SMTP
+# CELERY_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = '<HOST@EMAIL.COM>'
+# EMAIL_HOST_PASSWORD = '<HOST_EMAIL_PASSWORD>'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
 
 
 SECRET_KEY = 'only-for-testing'
