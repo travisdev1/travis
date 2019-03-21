@@ -106,11 +106,19 @@ class Message(TimeStampedModel):
         send_html_mail(subject, body_txt, body_html, self.recipient_email)
         self.save()
 
+    def __str__(self):
+        """String for representing the Message object (in Admin site etc.)."""
+        return self.identifier
+
 
 class BlacklistedEmail(TimeStampedModel):
     email = models.EmailField()
     stripped_email = models.CharField(max_length=255)
     confirmation_ip = models.GenericIPAddressField()
+
+    def __str__(self):
+        """String for representing the BlacklistedEmail object (in Admin site etc.)."""
+        return self.email
 
 
 def strip_email(email):
