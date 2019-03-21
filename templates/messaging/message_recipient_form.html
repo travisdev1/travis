@@ -16,7 +16,7 @@
         Your Happiness Packet contains:
         </p>
 
-    <blockquote>{{ message.message|linebreaksbr }}</blockquote>
+    <blockquote>{{ message.message|safe }}</blockquote>
 
     {% crispy form %}
 {% endblock content %}

@@ -88,3 +88,4 @@ with open("fas-admin-details.json") as f:
     secrets = json.load(f)
     ADMIN_USERNAME = secrets["ADMIN_USERNAME"]
     ADMIN_PASSWORD =  secrets["ADMIN_PASSWORD"]
+

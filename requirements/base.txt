@@ -28,15 +28,17 @@ pyflakes==1.0.0
 pep8==1.7.0
 
 # Misc
+urllib3==1.24.2       # Dependency for requests 
 python-dateutil==2.5.0
 factory-boy==2.9.2
 opbeat==3.6.1
-mozilla-django-oidc==1.2.1
+mozilla-django-oidc==1.2.2
 fedora-messaging>=1.4.0
 happinesspacket-schema>=0.1.2
 celery[redis]==4.2.1
 django-celery-email==2.0.1
 psycopg2==2.7.5 # PostgreSQL driver
+bleach>=3.1.0
 
 # Search engine
 Whoosh==2.7.4
@@ -50,3 +52,7 @@ email-normalize==0.2.1
 
 # Dependency for YAML file
 pyyaml==5.1
+
+# WYSIWYG addition
+django-ckeditor==5.7.0
+

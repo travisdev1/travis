@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
 from email_normalize import normalize
+import bleach
 
 from .models import Message, strip_email
 
@@ -75,7 +76,37 @@ class MessageSendForm(forms.ModelForm):
             return True
         else:
             return False
-            
+    
+    def clean_message(self): 
+        """ Cleans given HTML with bleach.clean() """
+
+        allowed_tags = set(bleach.ALLOWED_TAGS + [ 
+            'a', 'blockquote', 'code', 'del', 'dd', 'dl', 'dt', 
+            'h1', 'h2', 'h3', 'h3', 'h4', 'h5', 'i', 'img', 'kbd', 
+            'li', 'ol', 'ul', 'p', 'pre', 's', 'sup', 'sub', 'em', 
+            'strong', 'strike', 'ul', 'br', 'hr', ]) 
+
+        allowed_styles = set(bleach.ALLOWED_STYLES + [ 
+            'color', 'background-color', 'font', 'font-weight', 
+            'height', 'max-height', 'min-height', 
+            'width', 'max-width', 'min-width', ]) 
+
+        allowed_attributes = {}   
+        allowed_attributes.update(bleach.ALLOWED_ATTRIBUTES) 
+        allowed_attributes.update({ 
+            '*': ['class', 'title'], 
+            'a': ['href', 'rel'], 
+            'img': ['alt', 'src', 'width', 'height', 'align', 'style', 'max-width'], 
+        }) 
+        html = self.cleaned_data['message']
+        return bleach.clean(
+            html, 
+            strip=True,
+            tags=allowed_tags, 
+            attributes=allowed_attributes, 
+            styles=allowed_styles
+        ) 
+    
     def clean(self):
         super(MessageSendForm, self).clean()
         isREEqualsSE = self.is_recipient_email_equals_sender_email()

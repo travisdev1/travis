@@ -7,7 +7,7 @@
         {% endif %}
     </h4>
 <blockquote>
-  {{ message.message|linebreaksbr }}
+  {{ message.message|safe }}
 </blockquote>
 {% endfor %} {% block pagination %} {% if is_paginated %}
 {% include 'messaging/_pagination.html' %}

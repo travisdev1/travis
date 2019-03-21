@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.crypto import salted_hmac
 from model_utils import Choices
 from model_utils.models import TimeStampedModel
+from ckeditor.fields import RichTextField
 
 from happinesspackets.utils.misc import readable_random_token
 from happinesspackets.tasks import send_html_mail
@@ -40,7 +41,7 @@ class Message(TimeStampedModel):
     recipient_email_stripped = models.CharField(max_length=255)
     recipient_email_token = models.CharField(max_length=255, db_index=True)
 
-    message = models.TextField()
+    message = RichTextField()
 
     sender_named = models.BooleanField(default=False)
     sender_approved_public = models.BooleanField(default=False)

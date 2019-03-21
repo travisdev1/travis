@@ -11,6 +11,18 @@ with open("config.yml", 'r') as ymlfile:
 
 PROJECT_DIR = Path(__file__).ancestor(3)
 
+# CKEditor configurations
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'removePlugins':'smiley',
+        'extraPlugins': 'stylesheetparser',
+        'width': 'auto',
+        'contentsCss': 'html, iframe, body, img {max-width:100%;}',
+    },
+}
+
 # For clean_pyc to work without complaining
 BASE_DIR = PROJECT_DIR
 
@@ -118,6 +130,7 @@ INSTALLED_APPS = [
     'haystack',
     'happinesspackets.messaging',
     'djcelery_email',
+    'ckeditor',
 ]
 
 

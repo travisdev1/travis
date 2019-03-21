@@ -5,7 +5,7 @@ You just requested to send a Happiness Packet to {{ message.recipient_name }}.
 Your message reads: 
 
 ---------------------
-{{ message.message }}
+{{ message.message|safe }}
 ---------------------
 
 To confirm and send your message, click or copy this link to a web browser:
