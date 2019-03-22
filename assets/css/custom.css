@@ -67,7 +67,8 @@ aside .sidebar .total-packets:hover{
   text-decoration: none;
 }
 
-aside .sidebar a:hover {
+aside .sidebar a:hover,
+aside .sidebar a:focus {
     text-decoration: underline;
     background: none;
 }
@@ -143,6 +144,10 @@ blockquote {
     font-weight: bold;
 }
 
+.btn:focus {
+    color: white;
+}
+
 .btn-primary:hover{
     font-weight: normal;
     border-color: var(--secondary-color);
@@ -164,6 +169,39 @@ blockquote {
     background: #fff;
     color: var(--primary-color);
     border-color: #fff;
+}
+
+.dropdown-menu.show{
+    background: var(--primary-color);
+    width: 100%;
+    box-shadow: 0 5px 10px var(--primary-color);
+    border: 2px solid #fff;
+    border-top-color: var(--primary-color);
+    border-radius:  0 0 2em 2em;
+}
+
+.dropdown-menu.show a,
+.dropdown-menu.show a:hover{
+    padding: 5px 20px;
+    color: #fff;
+}
+
+.arrow-expanding{
+    width: 20px;
+    transition-duration: 0.3s;
+    margin-bottom: 2px;
+}
+
+.username{
+    cursor: pointer;
+}
+
+.username.dropdown-toggle[aria-expanded=false] .arrow-expanding{
+    transform: rotate(0);
+}
+
+.username.dropdown-toggle[aria-expanded=true] .arrow-expanding{
+    transform: rotate(-180deg);
 }
 
 .row.content {
