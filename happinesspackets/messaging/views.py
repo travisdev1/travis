@@ -5,7 +5,7 @@ import logging
 
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.utils.crypto import salted_hmac, constant_time_compare
 from django.utils.decorators import method_decorator
 from django.utils.html import format_html
@@ -14,6 +14,7 @@ from django.views.generic import FormView, TemplateView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render
+from django.conf import settings
 
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
@@ -25,6 +26,10 @@ from fedora_messaging.api import publish
 from fedora_messaging.config import conf
 from fedora_messaging.exceptions import PublishReturned, ConnectionException
 from happinesspacket_schema.schema import MessageV1
+
+#Include python-fedora
+from fedora.client.fas2 import AccountSystem
+from fedora.client import AuthError
 
 logger = logging.getLogger(__name__)
 
@@ -141,7 +146,7 @@ class MessageSenderConfirmationView(TemplateView):
                 "id": message.identifier,
                 "sender": sender_name,
                 "recipient": message.recipient_name
-            }    	         
+            }
         )
         try:
             publish(message)
@@ -199,3 +204,33 @@ class SentMessagesView(UserMessageView):
     def get_queryset(self):
         queryset = super(SentMessagesView, self).get_queryset()
         return queryset.filter(sender_email=self.request.user.email)
+
+class FasidSearchView():
+    @staticmethod
+    def fasidCheck(request):
+        try:
+            fas = AccountSystem(username= settings.ADMIN_USERNAME, password= settings.ADMIN_PASSWORD)
+            fasid = request.GET['fasid']
+            is_server_error = 'False'
+            type_of_error = ' No Error '
+            person = fas.person_by_username(fasid)
+            u_name = 'No name'
+            u_email = 'No email'
+            if not person:
+                logger.error("The FAS username doesnot exsist!")
+                account_exists = 'No'
+            else:
+                account_exists = 'Yes'
+                privacy = person['privacy']
+                if not(privacy):
+                    logger.warn("The privacy is set to not view the Name!")
+                    u_name = person['human_name']
+                u_email = person['email']
+
+            context = {'account_exists':account_exists,'email': u_email, 'name': u_name, 'server_error': is_server_error, 'type_of_error': type_of_error}
+        except Exception as ex:
+            type_of_error = ex.__class__.__name__
+            logger.error("%s Occured", type_of_error)
+            is_server_error = 'True'
+            context = {'account_exists':'Can\'t Say','email': 'Can\'t Say', 'name': 'Can\'t Say', 'server_error': is_server_error, 'type_of_error': type_of_error}
+        return JsonResponse(context)

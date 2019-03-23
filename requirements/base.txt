@@ -42,3 +42,5 @@ psycopg2==2.7.5 # PostgreSQL driver
 Whoosh==2.7.4
 django-haystack==2.8.1
 
+#python-fedora for f-a-s API
+python-fedora==0.10.0

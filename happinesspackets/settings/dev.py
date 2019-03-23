@@ -83,4 +83,8 @@ with open("client_secrets.json") as f:
     OIDC_RP_CLIENT_ID = secrets["client_id"]
     OIDC_RP_CLIENT_SECRET = secrets["client_secret"]
 
-
+# Reading the fas-id and Password
+with open("fas-admin-details.json") as f:
+    secrets = json.load(f)
+    ADMIN_USERNAME = secrets["ADMIN_USERNAME"]
+    ADMIN_PASSWORD =  secrets["ADMIN_PASSWORD"]

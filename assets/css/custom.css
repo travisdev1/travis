@@ -324,3 +324,12 @@ blockquote {
 .socio-buttons a {
     padding: 0.9rem;
 }
+.row .error{
+  color: red;
+  font-size: 1.4rem;
+  text-align: center;
+}
+.row .searching-text{
+  text-align: center;
+  font-size:1.4rem;
+}

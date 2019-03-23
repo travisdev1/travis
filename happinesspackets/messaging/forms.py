@@ -27,6 +27,7 @@ def validate_email(email):
 
 class MessageSendForm(forms.ModelForm):
     # hp = forms.CharField(label="do not fill", required=False)
+    fasid = forms.CharField(label="FAS Username", required=False)
 
     class Meta:
         model = Message
@@ -52,6 +53,7 @@ class MessageSendForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             # Fieldset('This Happiness Packet is from...', 'sender_name', 'sender_email', 'hp'),
+            Fieldset("Search for a FAS Username", 'fasid' ),
             Fieldset("Send this Happiness Packet to...", 'recipient_name', 'recipient_email'),
             Fieldset("Your message is...", 'message'),
             Fieldset("Privacy and permissions", 'sender_named', 'sender_approved_public', 'sender_approved_public_named'),

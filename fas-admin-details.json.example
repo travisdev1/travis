@@ -1,0 +1,5 @@
+#Create fas-admin-details.json and store the following json object into the file with your actual credentials. 
+{
+	"ADMIN_USERNAME":"<admin-username>",
+	"ADMIN_PASSWORD":"<admin-password>"
+}

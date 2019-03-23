@@ -24,3 +24,6 @@ syntax: glob
 
 #OIDC credentials
 client_secrets.json
+
+#Adding fas-admin-details.json so that the username and password does not get pushed
+fas-admin-details.json
