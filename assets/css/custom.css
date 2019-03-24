@@ -18,7 +18,7 @@ html{
 body {
     font-family: 'Open Sans';
     line-height: 1.8em;
-    font-size: 16px;
+    font-size: 9px;
     height: 100%;
     position: relative;
     margin: 0;
@@ -99,6 +99,10 @@ fieldset {
     margin-top: 1em;
 }
 
+fieldset .form-group{
+    font-size: 1.7em;
+}
+
 fieldset legend {
     font-family: 'Montserrat';
     font-style: italic;
@@ -107,13 +111,14 @@ fieldset legend {
 
 blockquote {
     border-left: 0px;
-    font-size: 16px;
+    font-size: 2rem;
     color: rgba(0, 0, 0, 0.7);
     background: url(/static/images/loveletter.png) no-repeat;
     background-size: 20%;
     background-position: 0 20px;
     padding-left: calc(20% + 20px);
     min-height: 120px;
+    line-height: 1.8em;
 }
 
 .centered {
@@ -281,7 +286,12 @@ blockquote {
 
 @media (max-width: 360px) {
     .btn-responsive {
-        font-size: 15px;
+        font-size: 12.5px;
+        margin: 2em 0;
+    }
+
+    main .container{
+        margin-bottom: 19em;
     }
 }
 
@@ -303,7 +313,9 @@ blockquote {
     font-size:2.3rem;
 }
 .footer-msg {
-    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    font-size: 16px;
+    line-height: 1.8em;
 }
 .footer-msg p {
   font-size: 2rem;
@@ -313,6 +325,7 @@ blockquote {
 }
 .row p {
     font-size: 2rem;
+    line-height: 1.8em;
 }
 .footer-share p{
     font-size: 2rem;
@@ -320,6 +333,7 @@ blockquote {
 .socio-buttons {
     padding: 1rem;
     font-size: 2rem;
+    padding-bottom: 0.5em;
 }
 .socio-buttons a {
     padding: 0.9rem;
