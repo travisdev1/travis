@@ -98,7 +98,6 @@ class BlacklistEmailView(TemplateView):
         return HttpResponseRedirect(self.success_url)
 
 class MessageSendView(LoginRequiredMixin, FormView):
-    login_url = '/oidc/authenticate/'
     template_name = 'messaging/message_send_form.html'
     form_class = MessageSendForm
 
@@ -200,7 +199,6 @@ class MessageRecipientMessageUpdate(UpdateView):
 
 
 class UserMessageView(LoginRequiredMixin, ListView):
-    login_url = '/oidc/authenticate/'
     model = Message
     paginate_by = 5
 

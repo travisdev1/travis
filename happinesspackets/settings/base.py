@@ -4,6 +4,11 @@ from django.contrib.messages import constants as messages
 from django.core.exceptions import ImproperlyConfigured
 from unipath import Path
 
+import yaml
+
+with open("config.yml", 'r') as ymlfile:
+    cfg = yaml.full_load(ymlfile)
+
 PROJECT_DIR = Path(__file__).ancestor(3)
 
 # For clean_pyc to work without complaining
@@ -11,11 +16,7 @@ BASE_DIR = PROJECT_DIR
 
 DEBUG = False
 
-ADMINS = (
-    ('Anna Philips', 'algogator@fedoraproject.org'),
-    ('Jona Azizaj', 'jonatoni@fedoraproject.org'),
-    ('Bhagyashree Uday', 'bee2502@fedoraproject.org'),
-)
+ADMINS = cfg['base']['admins']
 SERVER_EMAIL = ADMINS[0][1]
 
 DEFAULT_FROM_EMAIL = "Happiness Packets <fedora.happinesspackets@gmail.com>"
@@ -140,6 +141,7 @@ OIDC_OP_USER_ENDPOINT = "https://iddev.fedorainfracloud.org/openidc/UserInfo"
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL_FAILURE = '/error'
+LOGIN_URL = '/oidc/authenticate/'
 OIDC_RP_SCOPES = 'openid profile email'
 
 LOGGING = {

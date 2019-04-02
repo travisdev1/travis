@@ -34,6 +34,8 @@ The project comes with a Dockerfile that allows easy deployment of a web server.
 
 #. Create a fas-admin-details.json file and add a json object with your FAS-Username and FAS-Password. See fas-admin-details.json.example.
 
+#. Create a config.yml file and populate it with the user's details and usernames for `ADMINS <https://docs.djangoproject.com/en/2.1/ref/settings/#admins>`_ and superuser privileges respectively.
+
 Although the Dockerfile runs the script to check if a client_secrets.json file is present, please generate it before starting the Docker container, so that client secrets are not being constantly generated every time the image is rebuilt.
 
 In order to run the web server, alongside the Redis queue and celery worker instance, simply run ``docker-compose up``.

@@ -44,3 +44,6 @@ django-haystack==2.8.1
 
 #python-fedora for f-a-s API
 python-fedora==0.10.0
+
+# Dependency for YAML file
+pyyaml==5.1
