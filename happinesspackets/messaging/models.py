@@ -34,6 +34,7 @@ class Message(TimeStampedModel):
     sender_email_token = models.CharField(max_length=255, db_index=True)
     sender_ip = models.GenericIPAddressField()
 
+    recipient_username = models.CharField(blank=True, max_length=255)
     recipient_name = models.CharField(max_length=255)
     recipient_email = models.EmailField()
     recipient_email_stripped = models.CharField(max_length=255)

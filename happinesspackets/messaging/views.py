@@ -29,7 +29,7 @@ from happinesspacket_schema.schema import MessageV1
 
 #Include python-fedora
 from fedora.client.fas2 import AccountSystem
-from fedora.client import AuthError
+from fedora.client import AuthError, AppError
 
 logger = logging.getLogger(__name__)
 
@@ -117,6 +117,25 @@ class MessageSendView(LoginRequiredMixin, FormView):
         message.sender_name = self.request.user.first_name
         message.sender_email = self.request.user.email
         message.save()
+        if self.request.session.get('fasid',False) and self.request.session.get('recipient_email',False) == message.recipient_email:
+            message.recipient_username = self.request.session['fasid']
+        elif '@fedoraproject.org' in message.recipient_email:
+            message.recipient_username = message.recipient_email[0:-18]
+        else:
+            fas = AccountSystem(username=settings.ADMIN_USERNAME, password=settings.ADMIN_PASSWORD)
+            try:
+                query = fas.people_query(constraints={'email': message.recipient_email}, columns=['username'])
+            except AppError as error:
+                logger.error(error) 
+            else:
+                if query:
+                    message.recipient_username = query[0]['username']
+                else:
+                    logger.warn("No FAS username associated with the recipient's email ID.")  
+        message.save()  
+        if self.request.session.get('fasid', False):
+            del self.request.session['fasid']
+            del self.request.session['recipient_email']
         message.send_sender_confirmation(self.request.is_secure(), self.request.get_host())
         return HttpResponseRedirect(reverse('messaging:sender_confirmation_sent'))
 
@@ -140,12 +159,13 @@ class MessageSenderConfirmationView(TemplateView):
         message.send_to_recipient(self.request.is_secure(), self.request.get_host())
 
         sender_name = self.request.user.username if message.sender_named else "Anonymous"
+        recipient_name = message.recipient_username if message.recipient_username else message.recipient_name
         message = MessageV1(
             topic="happinesspacket.send",
             body={
                 "id": message.identifier,
                 "sender": sender_name,
-                "recipient": message.recipient_name
+                "recipient": recipient_name
             }
         )
         try:
@@ -226,7 +246,8 @@ class FasidSearchView():
                     logger.warn("The privacy is set to not view the Name!")
                     u_name = person['human_name']
                 u_email = person['email']
-
+                request.session['fasid'] = fasid
+                request.session['recipient_email'] = u_email
             context = {'account_exists':account_exists,'email': u_email, 'name': u_name, 'server_error': is_server_error, 'type_of_error': type_of_error}
         except Exception as ex:
             type_of_error = ex.__class__.__name__
