@@ -6,10 +6,11 @@
 
 {% block content %}
 
-    <div class="page-header">
-        <h2>Send a Happiness Packet to someone!</h2>
-        <br>
-    </div>
+<div class="page-header">
+    <h2>Send a Happiness Packet to someone!</h2>
+    <br>
+</div>
+{% crispy form %}
 
-    {% crispy form %}
+<button id="search_fasid">Search</button>
 {% endblock content %}

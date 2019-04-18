@@ -385,3 +385,16 @@ blockquote {
   text-align: center;
   font-size:1.4rem;
 }
+#search_fasid {
+    background-color: white;
+    padding: 0 1em;
+    color: var(--secondary-color);
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 2rem;
+    border: 2px solid var(--secondary-color);
+  }
+#div_id_fasid .controls {
+    display: inline-flex;
+}

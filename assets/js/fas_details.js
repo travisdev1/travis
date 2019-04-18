@@ -1,9 +1,17 @@
 $(document).ready(function () {
+  /*
+  Place the button inside input field
+  */
+  $("#id_fasid").after($("#search_fasid"))
+
+  /*
+  Making the input fields clear when the page reloads
+  */
   $("#id_fasid").val('')
   $("#id_recipient_name").val('')
   $("#id_recipient_email").val('')
 
-  $("#id_fasid").change(function () {
+  $("#search_fasid").click(function () {
 
     let fasid = $('#id_fasid').val()
     $("#server-error").remove()
@@ -16,7 +24,7 @@ $(document).ready(function () {
       $("#id_fasid").prop('disabled', true);
       $("#no-fas-id-error").remove()
       $("#server-error").remove()
-      $("#id_fasid").after('<p class="searching-text">Searching for FAS Username.........</p>')
+      $("#div_id_fasid").after('<p class="searching-text">Searching for FAS Username.........</p>')
 
       email = $.get('/send/search', { fasid: fasid }, function (data) {
 
@@ -25,7 +33,7 @@ $(document).ready(function () {
           $('#server-error').remove()
           $('.searching-text').remove()
           $("#id_fasid").prop('disabled', false);
-          $("#id_fasid").after('<p class="error" id="server-error" >Internal Server Error Occured! Enter Name and Email manually!</p>')
+          $("#div_id_fasid").after('<p class="error" id="server-error" >Internal Server Error Occured! Enter Name and Email manually!</p>')
           $('#server-error').fadeIn('slow', function () {
             $('#server-error').delay(3000).fadeOut()
           })
@@ -49,7 +57,7 @@ $(document).ready(function () {
           }
           else {
             $("#no-fas-id-error").remove()
-            $("#id_fasid").after('<p class="error" id="no-fas-id-error">Sorry! No such FAS Username exsist</p>')
+            $("#div_id_fasid").after('<p class="error" id="no-fas-id-error">Sorry! No such FAS Username exist</p>')
             console.log('No such FAS username exsists')
             $('#no-fas-id-error').fadeIn('slow', function () {
               $('#no-fas-id-error').delay(2700).fadeOut()
