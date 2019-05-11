@@ -227,7 +227,7 @@ class FasidSearchView():
     @staticmethod
     def fasidCheck(request):
         try:
-            fas = AccountSystem(username= settings.ADMIN_USERNAME, password= settings.ADMIN_PASSWORD)
+            fas = AccountSystem(username=settings.ADMIN_USERNAME, password=settings.ADMIN_PASSWORD)
             fasid = request.GET['fasid']
             is_server_error = 'False'
             type_of_error = ' No Error '
@@ -235,7 +235,7 @@ class FasidSearchView():
             u_name = 'No name'
             u_email = 'No email'
             if not person:
-                logger.error("The FAS username doesnot exsist!")
+                logger.error("The FAS username does not exist!")
                 account_exists = 'No'
             else:
                 account_exists = 'Yes'

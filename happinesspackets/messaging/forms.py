@@ -11,6 +11,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
+from email_normalize import normalize
 
 from .models import Message, strip_email
 
@@ -61,14 +62,31 @@ class MessageSendForm(forms.ModelForm):
             Submit('submit', 'Send some happiness', css_class='btn-lg centered'),
         )
 
+    def is_recipient_email_equals_sender_email(self):
+        recipient_email = self.cleaned_data.get('recipient_email')
+        sender_email = self.user.email
+        sender_username = self.user.username
+        normalized_sender_email = normalize(sender_email)
+        normalized_recipient_email = normalize(recipient_email)
+        #Fedora assigned email to the Sender
+        sender_fedora_email = sender_username + '@fedoraproject.org'
+        if normalized_recipient_email in (
+            sender_email, sender_fedora_email, normalized_sender_email):
+            return True
+        else:
+            return False
+            
     def clean(self):
         super(MessageSendForm, self).clean()
+        isREEqualsSE = self.is_recipient_email_equals_sender_email()
         # if self.cleaned_data.get('hp'):
         #     raise forms.ValidationError('')
         if self.cleaned_data.get('sender_approved_public_named') and not self.cleaned_data.get('sender_approved_public'):
             self.add_error('sender_approved_public_named', "If you want us to publish the message including your names, "
                                                            "you must also check 'I agree to publish this message and"
                                                            "display it publicly in the Happiness Archive'")
+        if isREEqualsSE:
+            raise forms.ValidationError("You cannot send a Fedora Happiness Packet to yourself!")
         validate_email(self.user.email)
 
 class MessageRecipientForm(forms.ModelForm):
