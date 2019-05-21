@@ -76,7 +76,6 @@ STATICFILES_DIRS = (
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'happinesspackets.utils.middleware.SetRemoteAddrFromForwardedFor',
-    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
     'dogslow.WatchdogMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
