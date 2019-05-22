@@ -143,7 +143,7 @@ class MessageSenderConfirmationSentView(TemplateView):
     template_name = 'messaging/message_sender_confirmation_sent.html'
 
 
-class MessageSenderConfirmationView(TemplateView):
+class MessageSenderConfirmationView(LoginRequiredMixin,TemplateView):
     template_name = 'messaging/message_sender_confirmation_failed.html'
 
     def get(self, request, *args, **kwargs):
@@ -152,6 +152,8 @@ class MessageSenderConfirmationView(TemplateView):
         except Message.DoesNotExist:
             return render(request, self.template_name, {'not_found': True})
 
+        if message.sender_email != self.request.user.email:
+            return render(request, self.template_name, {'not_sender': True})
         if message.status != Message.STATUS.pending_sender_confirmation:
             return render(request, self.template_name, {'already_confirmed': True})
 

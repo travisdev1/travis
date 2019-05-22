@@ -10,6 +10,10 @@
         <div class="alert alert-danger">
             We couldn't find this message. Make sure that the URL is complete.
         </div>
+    {% elif not_sender %}
+        <div class="alert alert-danger">
+            The message can't be confirmed since you aren't the sender of the message.
+        </div>
     {% elif already_confirmed %}
         <div class="alert alert-info">
             You already confirmed this message.
