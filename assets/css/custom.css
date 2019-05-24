@@ -398,3 +398,10 @@ blockquote {
 #div_id_fasid .controls {
     display: inline-flex;
 }
+.alert-danger {
+    font-size:1.4rem;
+    text-align: center;
+}
+.alert-danger ul {
+    list-style: none;
+}
