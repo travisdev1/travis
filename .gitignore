@@ -30,3 +30,9 @@ fas-admin-details.json
 
 # YAML Configuration file for django 
 config.yml
+
+# Django-haystack files
+whoosh_index/
+
+# VS Code files
+.vscode/

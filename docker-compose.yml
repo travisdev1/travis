@@ -2,7 +2,12 @@ version: "3"
 services:
   web:
     build: .
+    restart: always
     command: bash -c "python manage.py migrate --noinput && python manage.py rebuild_index --noinput && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./templates:/app/templates:z
+      - ./assets:/app/assets:z
+      - ./happinesspackets:/app/happinesspackets:z
     ports:
       - "8000:8000"
     links:
