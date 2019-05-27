@@ -38,11 +38,16 @@
                         <img class="arrow-expanding" src="/static/images/arrow-white.png" alt="side menu expanding icon">
                     </h3>
                     <ul class="dropdown-menu">
-                        {% url 'messaging:received_messages' as url %}
-                        <li><a class="dropdown-item" href="{{ url }}">My Received Packets</a></li>
-                        {% url 'messaging:sent_messages' as url %}
-                        <li><a class="dropdown-item" href="{{ url }}">My Sent Packets</a></li>
-
+                        
+                        {% if user.is_superuser %}
+                        {% url 'admin:index' as url %}
+                            <li><a class="dropdown-item" href="{{ url }}">Admin Portal</a></li>
+                        {% endif %}
+                            {% url 'messaging:received_messages' as url %}
+                            <li><a class="dropdown-item" href="{{ url }}">My Received Packets</a></li>
+                            {% url 'messaging:sent_messages' as url %}
+                            <li><a class="dropdown-item" href="{{ url }}">My Sent Packets</a></li>
+                        
                         <form id="logout" action="{% url 'oidc_logout' %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-logout">

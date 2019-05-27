@@ -14,8 +14,8 @@ urlpatterns = [
 
 if settings.ADMIN_ENABLED or settings.DEBUG:
     urlpatterns += [
-        re_path(r'^drunken-octo-lama/login/', RedirectView.as_view(url=settings.LOGIN_URL, permanent=True, query_string=True)),
-        re_path(r'^drunken-octo-lama/', admin.site.urls)
+        re_path(r'^admin/login/', RedirectView.as_view(url=settings.LOGIN_URL, permanent=True, query_string=True), name='admin_login'),
+        re_path(r'^admin/', admin.site.urls, name='admin')
     ]
 
 if settings.DEBUG:
