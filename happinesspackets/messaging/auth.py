@@ -5,6 +5,10 @@ import yaml
 with open("config.yml", 'r') as ymlfile:
     cfg = yaml.full_load(ymlfile)
 
+def provider_logout(request):
+    redirect_url = 'https://iddev.fedorainfracloud.org/logout'
+    return redirect_url
+
 class OIDC(OIDCAuthenticationBackend):
     def update_user(self, user, claims):
         if user.username in cfg['auth']['admins']:

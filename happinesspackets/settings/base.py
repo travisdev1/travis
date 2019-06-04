@@ -155,6 +155,7 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL_FAILURE = '/error'
 LOGIN_URL = '/oidc/authenticate/'
 OIDC_RP_SCOPES = 'openid profile email'
+OIDC_OP_LOGOUT_URL_METHOD = 'happinesspackets.messaging.auth.provider_logout'
 
 LOGGING = {
     'version': 1,
