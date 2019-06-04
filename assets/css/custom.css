@@ -405,3 +405,6 @@ blockquote {
 .alert-danger ul {
     list-style: none;
 }
+.fedmenu-content {
+    position: absolute !important;
+}
