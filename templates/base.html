@@ -65,21 +65,16 @@
                         </button>
                     </form>
                 {% endif %}
-                {% if packets_sent == 0 %}
-                    <li><a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 💔</b></a></li>
-                {% else %}
-                    <li><a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 🎉</b></a></li>
-                {% endif %}
                 {% url 'messaging:send' as url %}
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Send some happiness!</a></li>
-                {% url 'messaging:start' as url %}
-                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">What are Happiness Packets?</a></li>
-                {% url 'messaging:inspiration' as url %}
-                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Get inspired</a></li>
-                {% url 'messaging:faq' as url %}
-                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">FAQ</a></li>
                 {% url 'messaging:archive' as url %}
                 <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Happiness Archive</a></li>
+                {% url 'messaging:inspiration' as url %}
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">Get inspired</a></li>
+                {% url 'messaging:start' as url %}
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">About</a></li>
+                {% url 'messaging:faq' as url %}
+                <li role="presentation" {% ifequal request.path url %}class="active"{% endifequal %}><a href="{{ url }}">FAQ</a></li>
                 {% url 'messaging:search' as url %}
                 <li role="presentation" {% if url in request.path %}class="active"{% endif %}><a href="{{ url }}">Search the Archive</a></li>
               </ul>

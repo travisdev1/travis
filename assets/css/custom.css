@@ -60,10 +60,10 @@ aside .sidebar a {
     cursor: pointer;
 }
 
-aside .sidebar .total-packets {
+.total-packets {
     cursor: default;
 }
-aside .sidebar .total-packets:hover{
+.total-packets:hover{
   text-decoration: none;
 }
 
@@ -385,9 +385,9 @@ blockquote {
   text-align: center;
   font-size:1.4rem;
 }
-#search_fasid {
+.search {
     background-color: white;
-    padding: 0 1em;
+    padding: 0.5rem 1em;
     color: var(--secondary-color);
     font-weight: 500;
     cursor: pointer;
@@ -407,4 +407,15 @@ blockquote {
 }
 .fedmenu-content {
     position: absolute !important;
+}
+.total_happiness_sent{
+    text-align: center;
+    font-size: 3rem;
+    padding: 2rem;
+    font-family: 'Montserrat';
+}
+#id_q {
+    height: 3.2rem;
+    padding: 0 0.8rem;
+    border-radius: 2rem;
 }
