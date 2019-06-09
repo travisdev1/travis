@@ -8,11 +8,23 @@ This fork adds Fedora Account System authentication support and `fedora-messagin
 For more detailed information, see the specific pages below:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   setup/development
-   setup/development_windows
-   setup/authentication
-   model
-   faq
+    model
+    faq
 
+.. toctree::
+    :maxdepth: 2
+    :name: meta
+    :caption: Contributing
+    :glob:
+
+    meta/*
+
+.. toctree::
+    :maxdepth: 2
+    :name: setup
+    :caption: Developer set-up
+    :glob:
+
+    setup/*

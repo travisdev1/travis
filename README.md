@@ -14,13 +14,11 @@ For more help, read the [project documentation](https://fedora-happiness-packets
 
 [**fedora-happiness-packets.readthedocs.io**](https://fedora-happiness-packets.readthedocs.io/)
 
+### Contributing guidelines
 
-## Contributing guidelines
+See our [contributing guidelines](https://fedora-happiness-packets.readthedocs.io/meta/contributing/) for project guidelines.
 
-See [CONTRIBUTING.md](https://pagure.io/fedora-commops/fedora-happiness-packets/blob/master/f/.project-docs/CONTRIBUTING.md) for project guidelines.
-
-
-## Create development environment
+### Create development environment
 
 These instructions run an instance of fedora-happiness-packets on your local machine for development and testing purposes.
 See [setup instructions](https://fedora-happiness-packets.readthedocs.io/setup/development/) in our documentation.
@@ -40,7 +38,7 @@ We recommend this path of activities for newcomers to follow:
 ### 1. Read project goals and contributing guidelines
 
 Get to know our project better and what our goals are.
-Our [contributing guidelines](https://pagure.io/fedora-commops/fedora-happiness-packets/blob/master/f/.project-docs/CONTRIBUTING.md) explains what fedora-happiness-packets is and what it is not.
+Our [contributing guidelines](https://fedora-happiness-packets.readthedocs.io/meta/contributing/) explains what fedora-happiness-packets is and what it is not.
 They also explain etiquette on how to work on tickets and send pull requests.
 It is the most important reference when making contributions to the project.
 
