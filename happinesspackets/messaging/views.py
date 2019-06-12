@@ -36,6 +36,7 @@ logger = logging.getLogger(__name__)
 class MessageSearchView(SearchView):
     template_name = 'search/search.html'
     form_class = SearchForm
+    paginate_by = 5
 
 class ArchiveListView(ListView):
     model = Message

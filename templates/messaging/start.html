@@ -44,8 +44,6 @@
         <a href="{% url 'messaging:archive' %}">publish the Happiness Packet</a> on the website.
         We hope to build an archive of open-source happiness that communities can draw inspiration from.
     </p>
-
-    {% include 'messaging/_message_list.html' %}
     <div class="total_happiness_sent">
         {% if packets_sent == 0 %}
         <a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 💔</b></a>
@@ -53,5 +51,10 @@
         <a class="total-packets">Total Happiness Spread: <b>{{ packets_sent }} 🎉</b></a>
         {% endif %}
     </div>
+    <p>
+        As an example, here are two random messages from our archive:
+    </p>
+
+    {% include 'messaging/_message_list.html' %}
     
 {% endblock content %}
