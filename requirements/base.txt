@@ -55,3 +55,7 @@ pyyaml==5.1
 # WYSIWYG addition
 django-ckeditor==5.7.0
 
+#Testing using pytest
+pytest-django==3.5.0
+pytest==4.6.3
+pytest-cov==2.7.1
