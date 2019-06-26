@@ -10,7 +10,7 @@ with open(os.path.join(here, "README")) as fd:
 
 setup(
     name="happinesspacket_schema",
-    version="0.1.2",
+    version="1.0.0",
     description="A schema package for Fedora Happiness Packets",
     long_description=README,
     url="https://pagure.io/fedora-commops/fedora-happiness-packets",
