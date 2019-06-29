@@ -7,6 +7,7 @@ Following these guidelines help maintainers respond to new tickets and pull requ
 Not following these guidelines may make it harder or take longer to review your change.
 If you have questions about any of these guidelines, please ask in the `Community Operations team channels <https://docs.fedoraproject.org/en-US/commops/#find-commops>`__.
 
+
 *****
 Goals
 *****
@@ -39,10 +40,20 @@ When deciding exceptions, always consider Goal 1.
 3. Good code is tested code.
 ============================
 
-Introducing new code means introducing new tests.
-If writing code that could be tested, it is code that should be tested.
-This will be considered for introducing new functionality or unique code to fedora-happiness-packets.
+Introducing new code means adding unit tests.
+Fedora Happiness Packets uses the `Django test suite <https://docs.djangoproject.com/en/dev/topics/testing/>`__ and `pytest <https://pytest.org/>`__ for testing.
+As a rule of thumb, consider this wisdom when writing tests:
 
+* Use test functions and plain-old ``assert`` statements.
+* Ideally, test functions should be *around* five lines and assert one thing.
+* If you need multiple test classes, inheritance, or OOP, you might be doing it wrong.
+* If you need to make imports from other test directories, you might be doing it wrong.
+* If you need more than two levels of indentation, you might be doing it wrong.
+* "There's a plugin for that!"
+  Pytest has a rich `plugin community <https://docs.pytest.org/en/latest/plugins.html>`__ with almost anything you can think of.
+  Take advantage of them!
+* Don't use ``@mock.patch`` or ``with mock.patch``.
+  Use `pytest fixtures <https://pythontesting.net/framework/pytest/pytest-fixtures-nuts-bolts/>`__. [#]_
 
 ********************************
 Create a development environment
@@ -113,6 +124,13 @@ If more than three days have passed and you have not received a reply, follow up
 Someone may have missed your comment – no one is intentionally ignored.
 
 *Remember*, using issue templates and answering the above questions in pull requests reduces response time from a maintainer to your ticket / PR.
+
+
+.. [#] You can still use ``mock.patch``.
+       It has more features than pytest's monkeypatch fixture.
+       But don't use it with a decorator, which has a problem of applying at import time nor using it in ``with`` statements.
+       Instead, you would use it with ``pytest-mock``, which exports the Mock API via a ``mocker`` fixture.
+       The fixture ensures the enter/exit context happens at the usual time in pytest setup/teardown.
 
 .. |PASSED| image:: https://pagure.io/fedora-commops/fedora-happiness-packets/issue/raw/files/d4820df9449fd61951d807b5fe86231092a31db15932759b2b7b810262c002d0-Screenshot_2019-02-24_Settings_-_fedora-commops_fedora-happiness-packets_-_Pagure_io.png
    :target: https://pagure.io/fedora-commops/fedora-happiness-packets/issues?status=Open&tags=PASSED
