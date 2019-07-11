@@ -19,6 +19,7 @@
     <blockquote>
       {{ message.message|safe }}
     </blockquote>
+    <p><a href="{% url 'messaging:sender_message_update' identifier=message.identifier token=message.sender_email_token %}">Update Permissions</a></p>
     {% endfor %}
 
     {% block pagination %}

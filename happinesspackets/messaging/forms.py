@@ -149,3 +149,32 @@ class MessageRecipientForm(forms.ModelForm):
                                                               "names, you must also check 'I agree to publish this "
                                                               "message and display it publicly in the Happiness "
                                                               "Archive.'")
+class MessageSenderPermissionForm(forms.ModelForm):
+    class Meta: 
+        model = Message 
+        fields = ['sender_named', 'sender_approved_public', 'sender_approved_public_named']
+
+    def __init__(self, *args, **kwargs):
+        super(MessageSenderPermissionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-3'
+        self.helper.field_class = 'col-md-8'
+
+        self.fields['sender_named'].label = 'I agree to share my name and email address with the recipient.'
+        self.fields['sender_approved_public'].label = "I agree to publish this message and display it publicly in the Happiness Archive."
+        self.fields['sender_approved_public_named'].label = "... and I agree to display our names publicly too."
+        self.fields['sender_approved_public_named'].help_text = "Note: We only publish information if both the sender and the recipients agree."
+
+        self.helper.layout = Layout(
+            Fieldset("Privacy and permissions", 'sender_named', 'sender_approved_public', 'sender_approved_public_named'),
+            HTML("<br>"),
+            Submit('submit', 'Send some happiness', css_class='btn-lg centered'),
+        )
+    
+    def clean(self):
+        super(MessageSenderPermissionForm, self).clean()
+        if self.cleaned_data.get('sender_approved_public_named') and not self.cleaned_data.get('sender_approved_public'):
+            self.add_error('sender_approved_public_named', "If you want us to publish the message including your names, "
+                                                           "you must also check 'I agree to publish this message and"
+                                                           "display it publicly in the Happiness Archive'")

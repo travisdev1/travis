@@ -19,7 +19,7 @@ from django.conf import settings
 from haystack.generic_views import SearchView
 from haystack.forms import SearchForm
 
-from .forms import MessageSendForm, MessageRecipientForm
+from .forms import MessageSendForm, MessageRecipientForm, MessageSenderPermissionForm
 from .models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail, strip_email
 
 from fedora_messaging.api import publish
@@ -194,6 +194,24 @@ class MessageRecipientMessageUpdate(UpdateView):
         message = super(MessageRecipientMessageUpdate, self).get_queryset()
         valid_status = [Message.STATUS.sent, Message.STATUS.read]
         return message.filter(recipient_email_token=self.kwargs['token'], status__in=valid_status)
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, "Your choices have been saved.")
+        return HttpResponseRedirect(self.request.path)
+
+
+class MessageSenderPermissionsUpdate(UpdateView):
+    model = Message
+    form_class = MessageSenderPermissionForm
+    template_name = 'messaging/message_sender_permissions_form.html'
+    slug_field = 'identifier'
+    slug_url_kwarg = 'identifier'
+
+    def get_queryset(self):
+        message = super(MessageSenderPermissionsUpdate, self).get_queryset()
+        valid_status = [Message.STATUS.sent, Message.STATUS.read]
+        return message.filter(sender_email_token=self.kwargs['token'], status__in=valid_status)
 
     def form_valid(self, form):
         form.save()

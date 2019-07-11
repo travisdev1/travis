@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.urls import re_path
 
 from .views import (StartView, MessageSearchView, MessageSendView, MessageSenderConfirmationSentView, MessageSenderConfirmationView,
-                    MessageSenderConfirmedView, MessageRecipientMessageUpdate, FaqView, ArchiveView, InspirationView,
+                    MessageSenderConfirmedView, MessageRecipientMessageUpdate, MessageSenderPermissionsUpdate,FaqView, ArchiveView, InspirationView,
                     BlacklistEmailView, ReceivedMessagesView, SentMessagesView, FasidSearchView)
 
 app_name = 'messaging'
@@ -21,6 +21,7 @@ urlpatterns = [
     re_path(r'^send/confirmation/(?P<identifier>[\w-]+)/(?P<token>[\w-]+)/$', MessageSenderConfirmationView.as_view(), name='sender_confirm'),
     re_path(r'^send/confirmed/$', MessageSenderConfirmedView.as_view(), name='sender_confirmed'),
     re_path(r'^recipient/(?P<identifier>[\w-]+)/(?P<token>[\w-]+)/$', MessageRecipientMessageUpdate.as_view(), name='recipient_message_update'),
+    re_path(r'^sender/(?P<identifier>[\w-]+)/(?P<token>[\w-]+)/$', MessageSenderPermissionsUpdate.as_view(), name='sender_message_update'),
     re_path(r'^send/search/$', FasidSearchView.fasidCheck, name='fasid_check'),
     re_path(r'^search/?$', MessageSearchView.as_view(), name='search'),
 ]
