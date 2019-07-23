@@ -14,14 +14,11 @@ from .test_models import MessageModelFactory, BlacklistedEmailFactory
 from ..models import Message, BLACKLIST_HMAC_SALT, BlacklistedEmail
 
 
-class SearchViewTest(TestCase):
+class TestSearchView(TestCase):
     url = reverse('messaging:search')
 
     def test_anonymous_message_indexed(self):
-        MessageModelFactory(sender_approved_public=True, sender_approved_public_named=False,
-                            recipient_approved_public=True, recipient_approved_public_named=True,
-                            admin_approved_public=True)
-        msg = MessageModelFactory(sender_approved_public=True, sender_approved_public_named=True,
+        msg = MessageModelFactory(sender_approved_public=True, sender_approved_public_named=False,
                                   recipient_approved_public=True, recipient_approved_public_named=False,
                                   admin_approved_public=True)
         update_index.Command().handle(using=['default'])
@@ -32,6 +29,18 @@ class SearchViewTest(TestCase):
         self.assertContains(response, msg.message)
         self.assertNotContains(response, msg.sender_email)
         self.assertNotContains(response, msg.recipient_email)
+
+    def test_pagination_is_ten(self):
+        number_of_msgs = 11
+        for msg in range(number_of_msgs):
+            msg = MessageModelFactory(sender_approved_public=True, sender_approved_public_named=True,
+                                  recipient_approved_public=True, recipient_approved_public_named=True,
+                                  admin_approved_public=True)
+        response = self.client.get(self.url,{'q':msg.message})
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('is_paginated' in response.context)
+        self.assertTrue(response.context['is_paginated'] == True)
+        self.assertTrue(len(response.context['object_list']) == 10)
 
     def test_named_message_indexed(self):
         msg = MessageModelFactory(sender_approved_public=True, sender_approved_public_named=True,
@@ -61,7 +70,7 @@ class SearchViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['object_list']),0)
 
-class MessageCounterTest(TestCase):
+class TestMessageCounter(TestCase):
     url = reverse('messaging:start')
 
     def test_message_sent_included(self):
@@ -80,7 +89,7 @@ class MessageCounterTest(TestCase):
         self.assertEqual(response.context['packets_sent'],0)
 
 
-class StartViewTest(TestCase):
+class TestStartView(TestCase):
     url = reverse('messaging:start')
 
     def test_renders(self):
@@ -99,7 +108,7 @@ class StartViewTest(TestCase):
         self.assertNotContains(response, msg.recipient_email)
 
 
-class FaqViewTest(TestCase):
+class TestFaqView(TestCase):
     url = reverse('messaging:faq')
 
     def test_renders(self):
@@ -107,7 +116,7 @@ class FaqViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class InspirationViewTest(TestCase):
+class TestInspirationView(TestCase):
     url = reverse('messaging:inspiration')
 
     def test_renders(self):
@@ -115,7 +124,7 @@ class InspirationViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class ArchiveViewTest(TestCase):
+class TestArchiveView(TestCase):
     url = reverse('messaging:archive')
 
     def test_renders_no_public_messages(self):
@@ -160,7 +169,7 @@ class ArchiveViewTest(TestCase):
         self.assertNotContains(response, msg.recipient_email)
 
 
-class BlacklistViewTest(TestCase):
+class TestBlacklistView(TestCase):
     url_name = 'messaging:blacklist_email'
 
     def setUp(self):
@@ -190,11 +199,11 @@ class BlacklistViewTest(TestCase):
         self.assertFalse(BlacklistedEmail.objects.count())
 
 
-class SendViewTest(TestCase):
+class TestSendView(TestCase):
     url = reverse('messaging:send')
 
     def setUp(self):
-        super(SendViewTest, self).setUp()
+        super(TestSendView, self).setUp()
         self.post_data = {
             'sender_name': 'sender name',
             'sender_email': 'SEN.DER+FOOBAR@erik.io',
@@ -205,9 +214,7 @@ class SendViewTest(TestCase):
             'sender_approved_public': True,
             'sender_approved_public_named': True,
         }
-        self.user = User.objects.create_user("erikio", "sender@erik.io", "helloworld", first_name="Erik",last_name="Doe")
-        self.user.save()
-        self.client.login(username = "erikio", password = "helloworld")
+        self.client.force_login(User.objects.get_or_create(username="erikio",email="sender@erik.io", password="helloworld", first_name="Erik",last_name="Doe")[0])
 
     def test_renders(self):
         response = self.client.get(self.url)
@@ -229,6 +236,7 @@ class SendViewTest(TestCase):
         response = self.client.post(self.url, self.post_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['form'].errors), 1)
+        self.assertFormError(response, 'form', 'sender_approved_public_named', "If you want us to publish the message including your names, you must also check 'I agree to publish this message anddisplay it publicly in the Happiness Archive'")
         self.assertEqual(len(mail.outbox), 0)
 
     def test_post_blacklisted_sender(self):
@@ -243,6 +251,7 @@ class SendViewTest(TestCase):
         response = self.client.post(self.url, self.post_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['form'].errors), 1)
+        self.assertFormError(response, 'form', field=None, errors="We can't send emails to this address at this time. You can try again in 24 hours.")
         self.assertEqual(len(mail.outbox), 0)
 
     def test_post_ratelimited_recipient(self):
@@ -251,10 +260,18 @@ class SendViewTest(TestCase):
         response = self.client.post(self.url, self.post_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['form'].errors), 1)
+        self.assertFormError(response, 'form', 'recipient_email', "We can't send emails to this address at this time. You can try again in 24 hours.")
         self.assertEqual(len(mail.outbox), 0)
 
+    def test_sender_email_equals_recipient_email(self):
+        self.post_data['recipient_email'] = 'SEN.DER+FOOBAR@erik.io'
+        response = self.client.post(self.url, self.post_data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['form'].errors), 1)
+        self.assertFormError(response, 'form', field=None, errors="You cannot send a Fedora Happiness Packet to yourself!")
+        self.assertEqual(len(mail.outbox), 0)
 
-class MessageSentViewTest(TestCase):
+class TestMessageSentView(TestCase):
     url = reverse('messaging:sender_confirmation_sent')
 
     def test_renders(self):
@@ -262,10 +279,11 @@ class MessageSentViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class MessageSenderConfirmationView(TestCase):
+class TestMessageSenderConfirmationView(TestCase):
     url_name = 'messaging:sender_confirm'
 
     def setUp(self):
+        self.client.force_login(User.objects.get_or_create(username="erikio",email="sendersender@null", password="helloworld")[0])
         self.message = MessageModelFactory(sender_email_token='a-b-c', status=Message.STATUS.pending_sender_confirmation)
         url_kwargs = {'identifier': self.message.identifier, 'token': self.message.sender_email_token}
         self.url = reverse(self.url_name, kwargs=url_kwargs)
@@ -301,7 +319,7 @@ class MessageSenderConfirmationView(TestCase):
         self.message.save()
 
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
         self.assertTrue(response.context['not_found'])
 
     def test_bad_status(self):
@@ -319,7 +337,7 @@ class MessageSenderConfirmationView(TestCase):
         self.assertEqual(len(mail.outbox), 0)
 
 
-class MessageSenderConfirmedView(TestCase):
+class TestMessageSenderConfirmedView(TestCase):
     url = reverse('messaging:sender_confirmed')
 
     def test_renders(self):
@@ -327,7 +345,7 @@ class MessageSenderConfirmedView(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class MessageRecipientMessageUpdate(TestCase):
+class TestMessageRecipientMessageUpdate(TestCase):
     url_name = 'messaging:recipient_message_update'
 
     def setUp(self):

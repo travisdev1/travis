@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 import factory
-from django.test import TestCase
-
+import pytest
 
 class MessageModelFactory(factory.DjangoModelFactory):
     class Meta:
@@ -24,9 +22,11 @@ class BlacklistedEmailFactory(factory.DjangoModelFactory):
     email = 'emailemail@null'
     confirmation_ip = '127.0.0.1'
 
-
-class MessageModelTest(TestCase):
+@pytest.mark.django_db
+class TestMessageModel:
+    
     def test_unique_identifier(self):
         obj1 = MessageModelFactory()
         obj2 = MessageModelFactory()
-        self.assertNotEqual(obj1.identifier, obj2.identifier)
+        assert obj1.identifier != obj2.identifier
+

@@ -11,15 +11,19 @@ from django.conf import settings
 from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
-from email_normalize import normalize
 import bleach
 
 from .models import Message, strip_email
 
 logger = logging.getLogger(__name__)
 
+def check_recipient_is_sender(sender_emails, recipient_emails) -> bool:
+    if not (set(sender_emails).isdisjoint(recipient_emails)):
+        return True
+    else:
+        return False
 
-def validate_email(email):
+def validate_email_is_rate_limited(email):
     timeframe = timezone.now() - timedelta(hours=24)
     stripped_email = strip_email(email)
     recent_message_count = Message.objects.filter(Q(sender_email_stripped=stripped_email) | Q(recipient_email_stripped=stripped_email), created__gte=timeframe).count()
@@ -46,7 +50,7 @@ class MessageSendForm(forms.ModelForm):
 
         self.fields['recipient_name'].label = 'Name'
         self.fields['recipient_email'].label = 'Email'
-        self.fields['recipient_email'].validators = [validate_email]
+        self.fields['recipient_email'].validators = [validate_email_is_rate_limited]
         self.fields['message'].help_text = 'Writer\'s block? Check out our <a href="%s">message inspiration</a>.' % reverse('messaging:inspiration')
         self.fields['sender_named'].label = 'I agree to share my name and email address with the recipient.'
         self.fields['sender_approved_public'].label = "I agree to publish this message and display it publicly in the Happiness Archive."
@@ -62,20 +66,6 @@ class MessageSendForm(forms.ModelForm):
             HTML("<br>"),
             Submit('submit', 'Send some happiness', css_class='btn-lg centered'),
         )
-
-    def is_recipient_email_equals_sender_email(self):
-        recipient_email = self.cleaned_data.get('recipient_email')
-        sender_email = self.user.email
-        sender_username = self.user.username
-        normalized_sender_email = normalize(sender_email)
-        normalized_recipient_email = normalize(recipient_email)
-        #Fedora assigned email to the Sender
-        sender_fedora_email = sender_username + '@fedoraproject.org'
-        if normalized_recipient_email in (
-            sender_email, sender_fedora_email, normalized_sender_email):
-            return True
-        else:
-            return False
     
     def clean_message(self): 
         """ Cleans given HTML with bleach.clean() """
@@ -106,19 +96,28 @@ class MessageSendForm(forms.ModelForm):
             attributes=allowed_attributes, 
             styles=allowed_styles
         ) 
-    
+
     def clean(self):
         super(MessageSendForm, self).clean()
-        isREEqualsSE = self.is_recipient_email_equals_sender_email()
-        # if self.cleaned_data.get('hp'):
-        #     raise forms.ValidationError('')
-        if self.cleaned_data.get('sender_approved_public_named') and not self.cleaned_data.get('sender_approved_public'):
-            self.add_error('sender_approved_public_named', "If you want us to publish the message including your names, "
-                                                           "you must also check 'I agree to publish this message and"
-                                                           "display it publicly in the Happiness Archive'")
-        if isREEqualsSE:
-            raise forms.ValidationError("You cannot send a Fedora Happiness Packet to yourself!")
-        validate_email(self.user.email)
+        sender_emails = []
+        sender_emails.append(self.user.email)
+        sender_emails.append(strip_email(self.user.email))
+        sender_emails.append(self.user.username + '@fedoraproject.org')
+        recipient_emails = []
+        recipient_email = self.cleaned_data.get('recipient_email')
+        recipient_emails.append(recipient_email)
+        if recipient_email:                     #Before clean(), validation is performed, which removes recipient_email field if validation is failed
+            recipient_emails.append(strip_email(recipient_emails[0]))
+
+            if check_recipient_is_sender(sender_emails, recipient_emails):
+                raise forms.ValidationError("You cannot send a Fedora Happiness Packet to yourself!")
+            elif self.cleaned_data.get('sender_approved_public_named') and not self.cleaned_data.get('sender_approved_public'):
+                self.add_error('sender_approved_public_named', "If you want us to publish the message including your names, "
+                                                                "you must also check 'I agree to publish this message and"
+                                                                "display it publicly in the Happiness Archive'")
+        validate_email_is_rate_limited(self.user.email)
+
+    
 
 class MessageRecipientForm(forms.ModelForm):
     class Meta:

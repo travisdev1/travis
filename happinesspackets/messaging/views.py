@@ -36,8 +36,7 @@ logger = logging.getLogger(__name__)
 class MessageSearchView(SearchView):
     template_name = 'search/search.html'
     form_class = SearchForm
-    paginate_by = 5
-
+    paginate_by = 10
 class ArchiveListView(ListView):
     model = Message
     paginate_by = 5
@@ -151,13 +150,17 @@ class MessageSenderConfirmationView(LoginRequiredMixin,TemplateView):
         try:
             message = Message.objects.get(identifier=kwargs['identifier'], sender_email_token=kwargs['token'])
         except Message.DoesNotExist:
-            return render(request, self.template_name, {'not_found': True})
-
+            response = render(request, self.template_name, {'not_found': True})
+            response.status_code = 404
+            return response
+ 
         if message.sender_email != self.request.user.email:
-            return render(request, self.template_name, {'not_sender': True})
+            response = render(request, self.template_name, {'not_sender': True})
+            response.status_code = 400
+            return response
         if message.status != Message.STATUS.pending_sender_confirmation:
-            return render(request, self.template_name, {'already_confirmed': True})
-
+            response = render(request, self.template_name, {'already_confirmed': True})
+            return response
         message.send_to_recipient(self.request.is_secure(), self.request.get_host())
 
         sender_name = self.request.user.username if message.sender_named else "Anonymous"
@@ -173,9 +176,13 @@ class MessageSenderConfirmationView(LoginRequiredMixin,TemplateView):
         try:
             publish(message)
         except PublishReturned:
-            return render(request, self.template_name, {'publish_returned': True})
+            response = render(request, self.template_name, {'publish_returned': True})
+            response.status_code = 500
+            return response
         except ConnectionException:
-            return render(request, self.template_name, {'connection_exception': True})
+            response = render(request, self.template_name, {'connection_exception': True})
+            response.status_code = 500
+            return response
         return HttpResponseRedirect(reverse('messaging:sender_confirmed'))
 
 
