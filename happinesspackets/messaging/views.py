@@ -252,32 +252,28 @@ class SentMessagesView(UserMessageView):
         return queryset.filter(sender_email=self.request.user.email)
 
 class FasidSearchView():
-    @staticmethod
     def fasidCheck(request):
         try:
             fas = AccountSystem(username=settings.ADMIN_USERNAME, password=settings.ADMIN_PASSWORD)
             fasid = request.GET['fasid']
-            is_server_error = 'False'
-            type_of_error = ' No Error '
             person = fas.person_by_username(fasid)
-            u_name = 'No name'
-            u_email = 'No email'
             if not person:
                 logger.error("The FAS username does not exist!")
-                account_exists = 'No'
-            else:
-                account_exists = 'Yes'
-                privacy = person['privacy']
-                if not(privacy):
-                    logger.warn("The privacy is set to not view the Name!")
-                    u_name = person['human_name']
-                u_email = person['email']
-                request.session['fasid'] = fasid
-                request.session['recipient_email'] = u_email
-            context = {'account_exists':account_exists,'email': u_email, 'name': u_name, 'server_error': is_server_error, 'type_of_error': type_of_error}
+                response = JsonResponse({'error':'The FAS username does not exist!'})
+                response.status_code = 404
+                return response
+            if person['privacy']:
+                logger.warning("The privacy is set to net view the name!")
+            user = {
+                'privacy': person['privacy'],
+                'email': person['email'],
+                'name': person['human_name']
+            }
+            request.session['fasid'] = fasid
+            request.session['recipient_email'] = person['email']
+            return JsonResponse(user)
+
         except Exception as ex:
-            type_of_error = ex.__class__.__name__
-            logger.error("%s Occured", type_of_error)
-            is_server_error = 'True'
-            context = {'account_exists':'Can\'t Say','email': 'Can\'t Say', 'name': 'Can\'t Say', 'server_error': is_server_error, 'type_of_error': type_of_error}
-        return JsonResponse(context)
+            response = JsonResponse({'error': 'Internal Server Error'})
+            response.status_code = 500
+            return response
