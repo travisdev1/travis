@@ -263,7 +263,7 @@ class FasidSearchView():
                 response.status_code = 404
                 return response
             if person['privacy']:
-                logger.warning("The privacy is set to net view the name!")
+                logger.warning("The privacy is set to not view the name!")
             user = {
                 'privacy': person['privacy'],
                 'email': person['email'],
