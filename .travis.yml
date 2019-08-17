@@ -1,0 +1,13 @@
+---
+sudo: required
+services: docker
+language: generic
+dist: xenial
+
+jobs:
+  include:
+    - stage: upload 
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker-compose build
+      - docker-compose push

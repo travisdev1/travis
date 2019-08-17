@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: shraddhaag/happinesspackets:0.0.1
+    image: otravis1/happinesspackets:0.1.0
     build: .
     restart: always
     command: bash -c "python manage.py migrate --noinput && python manage.py rebuild_index --noinput && python manage.py runserver 0.0.0.0:8000"
