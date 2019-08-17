@@ -23,13 +23,13 @@ syntax: glob
 *.sqlite3
 
 #OIDC credentials
-client_secrets.json
+# client_secrets.json
 
 #Adding fas-admin-details.json so that the username and password does not get pushed
-fas-admin-details.json
+# fas-admin-details.json
 
 # YAML Configuration file for django 
-config.yml
+# config.yml
 
 # Django-haystack files
 whoosh_index/
